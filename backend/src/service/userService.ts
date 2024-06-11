@@ -1,0 +1,121 @@
+import UserModel from '../database/models/usersModel'
+import TTypeUser from '../types/TTypeUser'
+import PostModel from '../database/models/postsModel'
+import PhotoModel from '../database/models/photosModel'
+import TFollowers from '../types/TTypeFollowers'
+import FollowersModel from '../database/models/followersModel'
+import FollowingModel from '../database/models/followingModel'
+import TFollowings from '../types/TTypeFollowing'
+import CategoriesModel from '../database/models/categoriesModel'
+
+
+class UserService {
+
+  constructor() {
+  }
+
+  createUse = async (user: TTypeUser): Promise<TTypeUser> => {
+    const { email, name, password, image } = user;
+    const newUser = await UserModel.create({
+      name,
+      email,
+      password,
+      image
+    });
+    return newUser as unknown as TTypeUser;
+  }
+
+  deleteUserById = async (id: number): Promise<string> => {
+    try {
+      const user = await UserModel.findByPk(id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      await UserModel.destroy({ where: { id } });
+      return 'User deleted successfully';
+    } catch (error) {
+      if (error instanceof Error) {
+        return `Error: ${error.message}`;
+      }
+      return 'An unknown error occurred';
+    }
+  }
+
+  getAll = async (): Promise<TTypeUser[]> => {
+    const users = await UserModel.findAll({
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: PostModel,
+        as: 'posts',
+        include: [
+          {
+            model: PhotoModel,
+            as: 'photos'
+          }
+        ]
+      }]
+    });
+    return users as unknown as TTypeUser[];
+  }
+
+  getUserId = async (id: number): Promise<TTypeUser> => {
+    const user = await UserModel.findByPk(id, {
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: PostModel,
+        as: 'posts',
+        include: [
+          {
+            model: PhotoModel,
+            as: 'photos',
+          },
+          {
+            model: CategoriesModel,
+            as: 'category',
+          }
+        ]
+      }]
+    });
+    return user as unknown as TTypeUser;
+  }
+
+  getUserEmail = async (email: string): Promise<TTypeUser | null> => {
+    const user = await UserModel.findOne({
+      where: { email },
+    });
+    if (!user) return null;
+
+    const { dataValues } = user;
+
+    return dataValues as unknown as TTypeUser;
+  }
+
+  getUserFollowersById = async (id: number): Promise<TFollowers> => {
+    const user = await UserModel.findByPk(id, {
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: FollowersModel,
+        as: 'followers',
+      }]
+    })
+
+    return user as unknown as TFollowers;
+  }
+
+
+  getUserFollowingsById = async (id: number): Promise<TFollowings> => {
+    const user = await UserModel.findByPk(id, {
+      attributes: { exclude: ['password'] },
+      include: [{
+        model: FollowingModel,
+        as: 'followingUser',
+      }]
+    })
+    
+    return user as unknown as TFollowings;
+  }
+
+}
+
+
+export default new UserService();

@@ -1,0 +1,44 @@
+{
+  "name": "orkut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "start-prod": "tsc && node build/index.js",
+    "predev": "npm run build && npm run db:reset",
+    "dev": "nodemon src/index.ts",
+    "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize db:seed:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.11.17",
+    "@types/sequelize": "^4.28.14",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/bcrypt": "^5.0.0",
+    "amqplib": "^0.10.4",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.27.0",
+    "zod": "^3.23.8"
+  }
+}
