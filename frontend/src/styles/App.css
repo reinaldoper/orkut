@@ -1,0 +1,23 @@
+:root{
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  background-color: azure;
+}
+
+.orkut-img {
+  width: 70vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.content-page{
+  display: flex;
+}
+
+.read-the-docs {
+  color: #888;
+}

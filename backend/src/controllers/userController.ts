@@ -41,6 +41,8 @@ class UserController implements IUserDto {
 
     async delete(req: Request, res: Response) {
         const { id } = req.params;
+        const { id: userId } = req.body.id
+        if(userId !== Number(id)) return res.status(statusCodes.UNAUTHORIZED).json({ message: "User not authorization" });
         const user = await userService.deleteUserById(Number(id));
         return res.status(statusCodes.OK).json({ message: user });
     }
