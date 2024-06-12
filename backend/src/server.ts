@@ -8,6 +8,7 @@ import postRouter from './routes/postRoute';
 import categoryRouter from './routes/categoryRoute';
 import photoRouter from './routes/photosRoute';
 import followersRouter from './routes/followerRoute';
+import followingRouter from './routes/followingRoute';
 
 import cors = require('cors');
 
@@ -32,6 +33,7 @@ async function startServer() {
       app.use('/category', categoryRouter);
       app.use('/photos', photoRouter);
       app.use('/followers', followersRouter);
+      app.use('/following', followingRouter);
 
   } catch (error) {
       console.error('Failed to start routes:', error);
