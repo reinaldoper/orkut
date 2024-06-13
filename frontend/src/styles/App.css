@@ -7,17 +7,66 @@
 
 .orkut-img {
   width: 70vw;
-  height: 100vh;
+  height: 90vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: #D7DDF4;
+}
+
+.container h1{
+  align-items: center;
+  text-align: center;
+  height: 30px;
+  background-color: #BDD3F1;
+}
 
 .content-page{
   display: flex;
+  position: relative;
 }
 
 .read-the-docs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 71vw;
   color: #888;
+  position: absolute;
+}
+
+.login{
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  padding: 50px;
+  justify-content: center;
+  text-align: center;
+  color: black;
+}
+
+.email{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.password{
+  margin-bottom: 20px;
+}
+
+.checkbox{
+  margin-bottom: 20px;
+}
+
+.button-login{
+  display: flex;
+  justify-content: center;
+  width: 50px;
+  margin-left: 5.5vw;
 }
