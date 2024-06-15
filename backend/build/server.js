@@ -20,6 +20,7 @@ const postRoute_1 = __importDefault(require("./routes/postRoute"));
 const categoryRoute_1 = __importDefault(require("./routes/categoryRoute"));
 const photosRoute_1 = __importDefault(require("./routes/photosRoute"));
 const followerRoute_1 = __importDefault(require("./routes/followerRoute"));
+const followingRoute_1 = __importDefault(require("./routes/followingRoute"));
 const cors = require("cors");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -37,6 +38,16 @@ function startServer() {
             app.use('/category', categoryRoute_1.default);
             app.use('/photos', photosRoute_1.default);
             app.use('/followers', followerRoute_1.default);
+            app.use('/following', followingRoute_1.default);
+            const port = process.env.PORT || 3000;
+            app.listen(port, () => {
+                console.log(`Server is running on port ${port}`);
+            });
+            process.on('SIGINT', () => __awaiter(this, void 0, void 0, function* () {
+                console.log('Closing RabbitMQ connection...');
+                yield rabbitmq_1.default.close();
+                process.exit();
+            }));
         }
         catch (error) {
             console.error('Failed to start server:', error);

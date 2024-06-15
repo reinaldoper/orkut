@@ -17,13 +17,21 @@ class RabbitMQ {
     static init() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.connection = yield amqplib_1.default.connect('amqp://localhost');
+                this.connection = yield amqplib_1.default.connect('amqp://rabbitmq:5672');
+                this.connection.on('error', (err) => {
+                    console.error('RabbitMQ connection error:', err);
+                    setTimeout(() => this.init(), 2000);
+                });
+                this.connection.on('close', () => {
+                    console.error('RabbitMQ connection closed');
+                    setTimeout(() => this.init(), 2000);
+                });
                 this.channel = yield this.connection.createChannel();
                 console.log('Connected to RabbitMQ and channel created');
             }
             catch (error) {
                 console.error('Failed to connect to RabbitMQ or create channel:', error);
-                throw error; // Re-throw the error to handle it in the server start
+                throw error;
             }
         });
     }
@@ -32,6 +40,23 @@ class RabbitMQ {
             throw new Error('RabbitMQ channel is not initialized');
         }
         return this.channel;
+    }
+    static close() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (this.channel) {
+                    yield this.channel.close();
+                    console.log('RabbitMQ channel closed');
+                }
+                if (this.connection) {
+                    yield this.connection.close();
+                    console.log('RabbitMQ connection closed');
+                }
+            }
+            catch (error) {
+                console.error('Failed to close RabbitMQ connection or channel:', error);
+            }
+        });
     }
 }
 RabbitMQ.connection = null;

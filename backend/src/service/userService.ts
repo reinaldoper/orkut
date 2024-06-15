@@ -14,15 +14,22 @@ class UserService {
   constructor() {
   }
 
-  createUse = async (user: TTypeUser): Promise<TTypeUser> => {
-    const { email, name, password, image } = user;
-    const newUser = await UserModel.create({
-      name,
-      email,
-      password,
-      image
-    });
-    return newUser as unknown as TTypeUser;
+  createUser = async ({ name, email, password, image }: { email: string, name: string, password: string, image: string}): Promise<TTypeUser | string> => {
+    try {
+      const newUser = await UserModel.create({
+        name,
+        email,
+        password,
+        image
+      });
+      return newUser as unknown as TTypeUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        return `Error: ${error.message}`;
+      } else {
+        return 'An unexpected error occurred'
+      }
+    }
   }
 
   deleteUserById = async (id: number): Promise<string> => {
@@ -79,15 +86,13 @@ class UserService {
     return user as unknown as TTypeUser;
   }
 
-  getUserEmail = async (email: string): Promise<TTypeUser | null> => {
+  getUserEmail = async (email: string): Promise<TTypeUser> => {
     const user = await UserModel.findOne({
       where: { email },
     });
-    if (!user) return null;
+    
 
-    const { dataValues } = user;
-
-    return dataValues as unknown as TTypeUser;
+    return user as unknown as TTypeUser;
   }
 
   getUserFollowersById = async (id: number): Promise<TFollowers> => {
@@ -111,7 +116,7 @@ class UserService {
         as: 'followingUser',
       }]
     })
-    
+
     return user as unknown as TFollowings;
   }
 

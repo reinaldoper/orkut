@@ -20,15 +20,25 @@ const followingModel_1 = __importDefault(require("../database/models/followingMo
 const categoriesModel_1 = __importDefault(require("../database/models/categoriesModel"));
 class UserService {
     constructor() {
-        this.createUse = (user) => __awaiter(this, void 0, void 0, function* () {
+        this.createUser = (user) => __awaiter(this, void 0, void 0, function* () {
             const { email, name, password, image } = user;
-            const newUser = yield usersModel_1.default.create({
-                name,
-                email,
-                password,
-                image
-            });
-            return newUser;
+            try {
+                const newUser = yield usersModel_1.default.create({
+                    name,
+                    email,
+                    password,
+                    image
+                });
+                return newUser;
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    return `Error: ${error.message}`;
+                }
+                else {
+                    return 'An unexpected error occurred';
+                }
+            }
         });
         this.deleteUserById = (id) => __awaiter(this, void 0, void 0, function* () {
             try {

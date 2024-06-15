@@ -22,7 +22,7 @@ class UserController {
             const { password } = req.body;
             const hashPassword = yield bcrypt_1.default.hash(password, 10);
             req.body.password = hashPassword;
-            const user = yield userService_1.default.createUse(req.body);
+            const user = yield userService_1.default.createUser(req.body);
             return res.status(statusCodes_1.default.CREATED).json(user);
         });
     }
@@ -57,6 +57,9 @@ class UserController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
+            const { id: userId } = req.body.id;
+            if (userId !== Number(id))
+                return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: "User not authorization" });
             const user = yield userService_1.default.deleteUserById(Number(id));
             return res.status(statusCodes_1.default.OK).json({ message: user });
         });
