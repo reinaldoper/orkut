@@ -7,27 +7,21 @@ import IUserDto from "../Dtos/userDTO";
 
 class UserController implements IUserDto {
     async create(req: Request, res: Response) {
-      const { name, email, password, image } = req.body;
-        console.log(req.body);
+      const { password } = req.body;
         
         const hashPassword = becrypt.hashSync(password, 10);
-        console.log('senha', hashPassword);
-        
-        const user = await userService.createUser({ name, email, password: hashPassword, image });
+        req.body.password = hashPassword;
+        const user = await userService.createUser(req.body);
         return res.status(statusCodes.CREATED).json(user);
     }
 
     async login(req: Request, res: Response) {
         const { email, password } = req.body;
         const user = await userService.getUserEmail(email);
-        console.log('senha', user.password);
-        
         if (!user) {
             return res.status(statusCodes.BAD_REQUEST).json({ message: "Invalid email" });
         }
         const isPasswordValid = becrypt.compareSync(password, user.password);
-        console.log('isPasswordValid', isPasswordValid);
-        
         if (!isPasswordValid) {
             return res.status(statusCodes.BAD_REQUEST).json({ message: "Invalid password" });
         }
