@@ -14,7 +14,7 @@ class PhotosController implements PhotoDto {
       if (error instanceof Error) {
         return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
       } else {
-        return res.status(statusCodes.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
       }
     }
   }
@@ -40,7 +40,7 @@ class PhotosController implements PhotoDto {
       if (error instanceof Error) {
         return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
       } else {
-        return res.status(statusCodes.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
       }
     }
   }
@@ -55,7 +55,7 @@ class PhotosController implements PhotoDto {
       if (error instanceof Error) {
         return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
       } else {
-        return res.status(statusCodes.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
       }
     }
   }

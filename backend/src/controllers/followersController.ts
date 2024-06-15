@@ -15,7 +15,7 @@ class FollowerController implements FollowerDto {
       if (error instanceof Error) {
         return res.status(statusCodes.NOT_FOUND).json({ message: error.message });
       } else {
-        return res.status(statusCodes.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
       }
     }
   }
@@ -32,7 +32,7 @@ class FollowerController implements FollowerDto {
       if (error instanceof Error) {
         return res.status(statusCodes.NOT_FOUND).json({ message: error.message });
       } else {
-        return res.status(statusCodes.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
       }
     }
   }

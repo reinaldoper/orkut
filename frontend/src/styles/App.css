@@ -15,10 +15,20 @@
   padding: 20px;
 }
 
-.container h1 {
-  text-align: center;
-  font-size: 2em;
-  color: #C72FA5;
+.orkut-logo {
+  font-size: 4em; 
+  font-weight: bold; 
+  font-family: Arial, sans-serif; 
+  background: linear-gradient(45deg, #3B5998, #00A2E8, #83B312, #FFD800, #FF5800, #E1306C, #8B9DC3); 
+  -webkit-background-clip: text; 
+  color: transparent; 
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.5); 
+}
+
+.content-header-page{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .content-page {

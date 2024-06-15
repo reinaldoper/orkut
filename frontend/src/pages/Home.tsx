@@ -1,10 +1,14 @@
 import '../styles/App.css';
 import orkut_png from '../assets/orkut1.webp';
+import Header from '../components/Header';
 
 function Home() {
   return (
     <div className="container">
-      <h1>Orkut</h1>
+      <div className='content-header-page'>
+        <Header />
+        <h1 className='orkut-logo'>Orkut</h1>
+      </div>
       <div className="content-page">
         <div className="image-container">
           <img className="orkut-img" src={orkut_png} alt="orkut" title="orkut-page" />
