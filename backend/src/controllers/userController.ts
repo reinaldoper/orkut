@@ -8,7 +8,6 @@ import IUserDto from "../Dtos/userDTO";
 class UserController implements IUserDto {
     async create(req: Request, res: Response) {
       const { password } = req.body;
-        
         const hashPassword = becrypt.hashSync(password, 10);
         req.body.password = hashPassword;
         const user = await userService.createUser(req.body);

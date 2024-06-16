@@ -12,6 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      genro: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -30,6 +34,10 @@ module.exports = {
         allowNull: false,
       },
       interesting: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      country: {
         type: Sequelize.STRING,
         allowNull: false,
       },

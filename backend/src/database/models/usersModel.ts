@@ -9,6 +9,7 @@ class Users extends Model {
   declare image: string;
   declare relationship: string;
   declare interesting: string;
+  declare country: string;
   declare city: string;
   declare work: string;
   declare education: string;
@@ -22,6 +23,10 @@ Users.init({
     primaryKey: true,
   },
   name: {
+    type: STRING,
+    allowNull: false,
+  },
+  genro: {
     type: STRING,
     allowNull: false,
   },
@@ -43,6 +48,10 @@ Users.init({
     allowNull: false,
   },
   interesting: {
+    type: STRING,
+    allowNull: false,
+  },
+  country: {
     type: STRING,
     allowNull: false,
   },

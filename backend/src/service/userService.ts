@@ -15,16 +15,18 @@ class UserService {
   }
 
   createUser = async (user: TTypeUser): Promise<TTypeUser | string> => {
-    const { name, email, password, image, relationship, interesting,
+    const { name, genro, email, password, image, relationship, interesting, country,
       city, work, age, education } = user
     try {
       const newUser = await UserModel.create({
         name,
+        genro,
         email,
         password,
         image,
         relationship,
         interesting,
+        country,
         city,
         work,
         age,
