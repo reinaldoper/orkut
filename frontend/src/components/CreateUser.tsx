@@ -3,7 +3,7 @@
 const CreateUser = () => {
   return (
     <>
-      <h1>Cheguei aqui no cadastro!</h1>
+      <h1 className="bg-blue-500 p-4">Cheguei aqui no cadastro!</h1>
     </>
   )
 }
