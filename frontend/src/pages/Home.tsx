@@ -1,6 +1,7 @@
 import '../styles/App.css';
 import orkut_png from '../assets/orkut1.webp';
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -28,6 +29,9 @@ function Home() {
             <label className="checkbox-container">
               <input type="checkbox" className="checkbox" />
               Salvar as minhas informações neste computador
+            </label>
+            <label>
+              <Link to='/user-form'>Ainda não tem cadastro?</Link>
             </label>
             <button type="submit" className="button-login">Login</button>
           </form>

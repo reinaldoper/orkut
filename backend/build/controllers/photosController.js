@@ -27,7 +27,7 @@ class PhotosController {
                     return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
                 }
             }
         });
@@ -58,7 +58,7 @@ class PhotosController {
                     return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
                 }
             }
         });
@@ -76,7 +76,7 @@ class PhotosController {
                     return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
                 }
             }
         });

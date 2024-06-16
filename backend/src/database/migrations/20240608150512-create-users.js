@@ -25,6 +25,30 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      relationship: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      interesting: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      city: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      work: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      education: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      age: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

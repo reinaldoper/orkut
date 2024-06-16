@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const userService_1 = __importDefault(require("../service/userService"));
 const statusCodes_1 = __importDefault(require("../statusCodes"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class UserController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { password } = req.body;
-            const hashPassword = yield bcrypt_1.default.hash(password, 10);
+            const hashPassword = bcryptjs_1.default.hashSync(password, 10);
             req.body.password = hashPassword;
             const user = yield userService_1.default.createUser(req.body);
             return res.status(statusCodes_1.default.CREATED).json(user);
@@ -33,7 +33,7 @@ class UserController {
             if (!user) {
                 return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: "Invalid email" });
             }
-            const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
+            const isPasswordValid = bcryptjs_1.default.compareSync(password, user.password);
             if (!isPasswordValid) {
                 return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: "Invalid password" });
             }

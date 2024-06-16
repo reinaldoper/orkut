@@ -8,6 +8,12 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
     email: z.string().email("Invalid email" ),
     password: z.string().min(6, "Password must be at least 6 characters" ),
     image: z.string().min(1, "Image must be at least 1 character" ),
+    relationship: z.string().min(1, "Relationship must be at least 1 character" ),
+    interesting: z.string().min(1, "Interesting must be at least 1 character" ),
+    city: z.string().min(1, "City must be at least 1 character" ),
+    work: z.string().min(1, "Work must be at least 1 character" ),
+    education: z.string().min(1, "Education must be at least 1 character" ),
+    age: z.string().min(1, "Age must be at least 1 character")
   });
 
   try {

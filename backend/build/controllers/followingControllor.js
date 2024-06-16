@@ -28,7 +28,7 @@ class FollowingController {
                     return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
                 }
             }
         });
@@ -59,7 +59,7 @@ class FollowingController {
                     return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
                 }
             }
         });

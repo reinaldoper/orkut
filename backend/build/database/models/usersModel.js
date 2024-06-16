@@ -30,6 +30,30 @@ Users.init({
         type: sequelize_1.STRING,
         allowNull: false,
     },
+    relationship: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    interesting: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    city: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    work: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    education: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    age: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
 }, {
     underscored: true,
     sequelize: _1.default,

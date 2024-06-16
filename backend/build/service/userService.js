@@ -21,13 +21,19 @@ const categoriesModel_1 = __importDefault(require("../database/models/categories
 class UserService {
     constructor() {
         this.createUser = (user) => __awaiter(this, void 0, void 0, function* () {
-            const { email, name, password, image } = user;
+            const { name, email, password, image, relationship, interesting, city, work, age, education } = user;
             try {
                 const newUser = yield usersModel_1.default.create({
                     name,
                     email,
                     password,
-                    image
+                    image,
+                    relationship,
+                    interesting,
+                    city,
+                    work,
+                    age,
+                    education
                 });
                 return newUser;
             }
@@ -96,10 +102,7 @@ class UserService {
             const user = yield usersModel_1.default.findOne({
                 where: { email },
             });
-            if (!user)
-                return null;
-            const { dataValues } = user;
-            return dataValues;
+            return user;
         });
         this.getUserFollowersById = (id) => __awaiter(this, void 0, void 0, function* () {
             const user = yield usersModel_1.default.findByPk(id, {

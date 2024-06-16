@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+const express_1 = __importDefault(require("express"));
 const rabbitmq_1 = __importDefault(require("./rabbitmq"));
 const messagingMiddleware_1 = __importDefault(require("./middlewares/messagingMiddleware"));
 const userRoute_1 = __importDefault(require("./routes/userRoute"));
@@ -22,11 +22,11 @@ const photosRoute_1 = __importDefault(require("./routes/photosRoute"));
 const followerRoute_1 = __importDefault(require("./routes/followerRoute"));
 const followingRoute_1 = __importDefault(require("./routes/followingRoute"));
 const cors = require("cors");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
+const app = (0, express_1.default)();
 app.use(cors());
-app.use(express.json());
+app.use(express_1.default.json());
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -43,11 +43,6 @@ function startServer() {
             app.listen(port, () => {
                 console.log(`Server is running on port ${port}`);
             });
-            process.on('SIGINT', () => __awaiter(this, void 0, void 0, function* () {
-                console.log('Closing RabbitMQ connection...');
-                yield rabbitmq_1.default.close();
-                process.exit();
-            }));
         }
         catch (error) {
             console.error('Failed to start server:', error);
