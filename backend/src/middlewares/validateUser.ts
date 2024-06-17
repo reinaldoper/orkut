@@ -19,8 +19,10 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     userSchema.parse(req.body);
-
-    if (!req.file) {
+    
+    const file = req.file;
+    
+    if (!file) {
       return res.status(statusCodes.BAD_REQUEST).json({ message: "Image is required" });
     }
 
