@@ -1,6 +1,7 @@
 import PhotosModel from "../database/models/photosModel";
 import PostsModel from "../database/models/postsModel";
 import TPhoto from "../types/TTypePhotos";
+import fs from 'fs'
 
 class PhotosService {
 
@@ -30,8 +31,8 @@ class PhotosService {
         });
     }
 
-    async create(photo: TPhoto, userId: number): Promise<TPhoto> {
-      const { url, title = '', postId } = photo;
+    async create(photo: TPhoto, userId: number, url: Express.Multer.File | undefined): Promise<TPhoto> {
+      const { title = '', postId } = photo;
         const post = await PostsModel.findByPk(postId);
 
         if (!post) {
@@ -43,14 +44,14 @@ class PhotosService {
         }
 
         return await PhotosModel.create({
-            url,
+            url: url? url.path : '',
             title,
             postId
         });
     }
 
-    async update(id: number, updatedPhoto: TPhoto, userId: number) {
-        const { url, title = '' } = updatedPhoto;
+    async update(id: number, updatedPhoto: TPhoto, userId: number, url: Express.Multer.File | undefined) {
+        const { title = '' } = updatedPhoto;
         const photo = await PhotosModel.findByPk(id, {
             include: [
                 {
@@ -67,9 +68,9 @@ class PhotosService {
         if (photo.post.userId !== userId) {
             throw new Error('Unauthorized');
         }
-
+        fs.unlinkSync(photo.url)
         return await photo.update({
-            url,
+            url: url? url.path : '',
             title
         });
     }
@@ -91,6 +92,7 @@ class PhotosService {
         if (photo.post.userId !== userId) {
             throw new Error('Unauthorized');
         }
+        fs.unlinkSync(photo.url)
 
         return await photo.destroy();
     }

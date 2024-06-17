@@ -5,12 +5,14 @@ import statusCodes from "../statusCodes";
 const validatePhoto = (req: Request, res: Response, next: NextFunction) => {
   const userSchema = z.object({
     title: z.string().optional(),
-    url: z.string().min(1, "Photo is required" ),
     postId: z.number().min(1, "postId is required" ),
   });
 
   try {
     userSchema.parse(req.body);
+    if (!req.file) {
+      return res.status(statusCodes.BAD_REQUEST).json({ message: "Image is required" });
+    }
     next();
   } catch (err) {
     if (err instanceof ZodError) {

@@ -41,7 +41,7 @@ Users.init({
   },
   image: {
     type: STRING,
-    allowNull: false,
+    allowNull: true,
   },
   relationship: {
     type: STRING,

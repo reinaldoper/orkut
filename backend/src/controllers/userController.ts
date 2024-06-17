@@ -10,7 +10,8 @@ class UserController implements IUserDto {
       const { password } = req.body;
         const hashPassword = becrypt.hashSync(password, 10);
         req.body.password = hashPassword;
-        const user = await userService.createUser(req.body);
+        const image: Express.Multer.File | undefined = req.file;
+        const user = await userService.createUser(req.body, image);
         return res.status(statusCodes.CREATED).json(user);
     }
 

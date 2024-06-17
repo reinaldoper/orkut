@@ -7,6 +7,7 @@ import FollowersModel from '../database/models/followersModel'
 import FollowingModel from '../database/models/followingModel'
 import TFollowings from '../types/TTypeFollowing'
 import CategoriesModel from '../database/models/categoriesModel'
+import fs from 'fs'
 
 
 class UserService {
@@ -14,8 +15,8 @@ class UserService {
   constructor() {
   }
 
-  createUser = async (user: TTypeUser): Promise<TTypeUser | string> => {
-    const { name, genro, email, password, image, relationship, interesting, country,
+  createUser = async (user: TTypeUser, image: Express.Multer.File | undefined): Promise<TTypeUser | string> => {
+    const { name, genro, email, password, relationship, interesting, country,
       city, work, age, education } = user
     try {
       const newUser = await UserModel.create({
@@ -23,7 +24,7 @@ class UserService {
         genro,
         email,
         password,
-        image,
+        image: image ? image.path: '',
         relationship,
         interesting,
         country,
@@ -48,6 +49,7 @@ class UserService {
       if (!user) {
         throw new Error('User not found');
       }
+      fs.unlinkSync(user.image);
       await UserModel.destroy({ where: { id } });
       return 'User deleted successfully';
     } catch (error) {

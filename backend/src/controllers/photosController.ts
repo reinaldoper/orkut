@@ -8,7 +8,8 @@ class PhotosController implements PhotoDto {
   async create(req: Request, res: Response) {
     try {
       const { id: userId } = req.body.id;
-      const photo = await photosService.create(req.body, userId);
+      const url: Express.Multer.File | undefined = req.file;
+      const photo = await photosService.create(req.body, userId, url);
       return res.status(statusCodes.CREATED).json({ message: photo });
     } catch (error) {
       if (error instanceof Error) {
@@ -49,7 +50,8 @@ class PhotosController implements PhotoDto {
     try {
       const { id } = req.params;
       const { id: userId } = req.body.id;
-      const update = await photosService.update(Number(id), req.body, userId)
+      const url: Express.Multer.File | undefined = req.file;
+      const update = await photosService.update(Number(id), req.body, userId, url)
       return res.status(statusCodes.OK).json({ message: update });
     } catch (error) {
       if (error instanceof Error) {
