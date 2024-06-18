@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import RabbitMQ from '../rabbitmq';
+import statusCodes from '../statusCodes';
 
 const messagingMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,7 +18,7 @@ const messagingMiddleware = async (req: Request, res: Response, next: NextFuncti
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
         console.log(" [x] Sent %s", JSON.stringify(message));
     } catch (error) {
-        console.error('Failed to send message to RabbitMQ:', error);
+        res.status(statusCodes.ERROR).json({ error: 'Failed to send message to RabbitMQ' })
     }
 
     next();

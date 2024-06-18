@@ -20,6 +20,7 @@ class UserService {
       city, work, age, education } = user
     try {
       const newUser = await UserModel.create({
+        attributes: { exclude: ['password'] },
         name,
         genro,
         email,
@@ -31,7 +32,7 @@ class UserService {
         city,
         work,
         age,
-        education
+        education,
       });
       return newUser as unknown as TTypeUser;
     } catch (error) {

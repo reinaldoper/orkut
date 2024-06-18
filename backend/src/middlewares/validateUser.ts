@@ -23,15 +23,15 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
     const file = req.file;
     
     if (!file) {
-      return res.status(statusCodes.BAD_REQUEST).json({ message: "Image is required" });
+      return res.status(statusCodes.BAD_REQUEST).json({ error: "Image is required" });
     }
 
     next();
   } catch (err) {
     if (err instanceof ZodError) {
-      return res.status(statusCodes.BAD_REQUEST).json({ message: err.errors[0].message });
+      return res.status(statusCodes.BAD_REQUEST).json({ error: err.errors[0].message });
     }
-    return res.status(statusCodes.ERROR).json({ message: "Internal server error" });
+    return res.status(statusCodes.ERROR).json({ error: "Internal server error" });
   }
 }
 

@@ -13,9 +13,9 @@ const validateLogin = (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (err) {
     if (err instanceof ZodError) {
-      return res.status(statusCodes.BAD_REQUEST).json({ message: err.errors[0].message });
+      return res.status(statusCodes.BAD_REQUEST).json({ error: err.errors[0].message });
     }
-    return res.status(statusCodes.ERROR).json({ message: "Internal server error" });
+    return res.status(statusCodes.ERROR).json({ error: "Internal server error" });
   }
 }
 

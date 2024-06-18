@@ -13,9 +13,9 @@ class PhotosController implements PhotoDto {
       return res.status(statusCodes.CREATED).json({ message: photo });
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
+        return res.status(statusCodes.UNAUTHORIZED).json({ error: error.message });
       } else {
-        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ error: 'An unexpected error occurred' });
       }
     }
   }
@@ -39,9 +39,9 @@ class PhotosController implements PhotoDto {
       return res.status(statusCodes.OK).json({ message: 'Success with deleted' });
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
+        return res.status(statusCodes.UNAUTHORIZED).json({ error: error.message });
       } else {
-        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ error: 'An unexpected error occurred' });
       }
     }
   }
@@ -55,9 +55,9 @@ class PhotosController implements PhotoDto {
       return res.status(statusCodes.OK).json({ message: update });
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(statusCodes.UNAUTHORIZED).json({ message: error.message });
+        return res.status(statusCodes.UNAUTHORIZED).json({ error: error.message });
       } else {
-        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ error: 'An unexpected error occurred' });
       }
     }
   }
