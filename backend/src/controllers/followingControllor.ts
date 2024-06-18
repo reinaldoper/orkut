@@ -12,9 +12,9 @@ class FollowingController {
       res.status(statusCodes.CREATED).json({ message: "Followed successfully" });
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(statusCodes.NOT_FOUND).json({ message: error.message });
+        return res.status(statusCodes.NOT_FOUND).json({ error: error.message });
       } else {
-        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ error: 'An unexpected error occurred' });
       }
     }
   }
@@ -38,9 +38,9 @@ class FollowingController {
       res.status(statusCodes.OK).send({ message: following });
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(statusCodes.NOT_FOUND).json({ message: error.message });
+        return res.status(statusCodes.NOT_FOUND).json({ error: error.message });
       } else {
-        return res.status(statusCodes.ERROR).json({ message: 'An unexpected error occurred' });
+        return res.status(statusCodes.ERROR).json({ error: 'An unexpected error occurred' });
       }
     }
   }
