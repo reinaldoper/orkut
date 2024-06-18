@@ -48,13 +48,17 @@ const CreateUser = () => {
     formData.append('city', city ? city : '');
     formData.append('work', work ? work : '');
     formData.append('education', education ? education : '');
-    formData.append('gender', gender ? gender : '');
+    formData.append('genro', gender ? gender : '');
     const options = {
       method: 'POST',
       body: formData,
     };
-    const data = await fetchUsers(options)
-    if (data) navigate('/');
+    const { message, error } = await fetchUsers('',options)
+    if (message) navigate('/');
+    if (error) {
+      alert(error)
+      return;
+    }
   }
 
   return (
