@@ -2,7 +2,7 @@ import { ISubmit } from "../types/TUser"
 import { ChangeEvent, useState } from "react"
 import fetchUsers from '../services/fetchUsers'
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
+import NavLink from "./NavLink"
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null)
@@ -53,7 +53,7 @@ const CreateUser = () => {
       method: 'POST',
       body: formData,
     };
-    const { message, error } = await fetchUsers('',options)
+    const { message, error } = await fetchUsers('', options)
     if (message) navigate('/');
     if (error) {
       alert(error)
@@ -63,9 +63,7 @@ const CreateUser = () => {
 
   return (
     <>
-      <h1 className="bg-blue-300 p-4 flex">
-        <Link to="/">Home</Link>
-      </h1>
+      <NavLink />
       <form encType="multipart/form-data" onSubmit={onSubmit} className="space-y-4 p-4" style={{ margin: '0 10px' }}>
         <div>
           <label htmlFor="name">Nome:</label>

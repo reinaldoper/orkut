@@ -2,6 +2,8 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import UserForm from "../pages/UserForm";
 import ContentPage from "../pages/ContentPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import About from "../components/About";
 
 const routerRoute = () => {
   return (
@@ -11,7 +13,8 @@ const routerRoute = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/user-form" element={<UserForm />}></Route>
           <Route path="/content-page" element={<ContentPage />}></Route>
-          <Route path="*" element={<h1>Page not found</h1>}></Route>
+          <Route path="*" element={<NotFoundPage  />}></Route>
+          <Route path="/about" element={<About />}></Route>
         </Routes>
       </BrowserRouter>
     </>

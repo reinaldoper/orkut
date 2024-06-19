@@ -7,7 +7,7 @@ const Header = () => {
     <div className='content-header text-blue-700 font-sans'>
       <Link to='/'>Home</Link> <div className='m-2'>|</div>
       <Link to='/user-form'>Join Orkut</Link> <div className='m-2'>|</div>
-      <Link to='#'>Help</Link>
+      <Link to='/about'>About</Link>
     </div>
   )
 }
