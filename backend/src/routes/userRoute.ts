@@ -5,7 +5,7 @@ import validateUser from "../middlewares/validateUser";
 import validateLogin from "../middlewares/validateLogin";
 import validateId from "../middlewares/validateId"
 import multer from "multer";
-import storage from "../storageSingle";
+import storage from "../conf/storageSingle";
 
 const routerUser = Router();
 const upload = multer({ storage: storage });

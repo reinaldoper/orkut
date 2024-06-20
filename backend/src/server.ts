@@ -1,5 +1,6 @@
 import express from 'express';
 import RabbitMQ from './rabbitmq';
+import path from 'path';
 import messagingMiddleware from './middlewares/messagingMiddleware';
 
 import routerUser from './routes/userRoute';
@@ -17,6 +18,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+const uploadDir = path.join(__dirname, '../uploads'); 
+app.use('/uploads', express.static(uploadDir)); 
+
 
 async function startServer() {
   try {
@@ -24,7 +28,7 @@ async function startServer() {
     console.log('RabbitMQ connected');
 
     app.use(messagingMiddleware);
-  
+
 
     app.use('/users', routerUser);
     app.use('/posts', postRouter);

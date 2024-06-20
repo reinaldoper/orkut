@@ -4,7 +4,7 @@ import auth from "../middlewares/auth";
 import validatePhoto from "../middlewares/validatePhoto";
 import validatePhotoUpdate from "../middlewares/validatePhotoUpdate";
 import { Router } from "express";
-import storage from '../storagePhotos'
+import storage from '../conf/storageSingle'
 import multer from "multer";
 
 const photoRouter = Router();

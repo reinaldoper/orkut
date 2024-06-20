@@ -25,7 +25,7 @@ class UserService {
         genro,
         email,
         password,
-        image: image ? image.path: '',
+        image: `/uploads/${image?.filename}`,
         relationship,
         interesting,
         country,

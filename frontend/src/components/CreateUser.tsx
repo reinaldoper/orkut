@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react"
 import fetchUsers from '../services/fetchUsers'
 import { useNavigate } from "react-router-dom"
 import NavLink from "./NavLink"
+import educationList from "../utils/education"
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null)
@@ -60,6 +61,9 @@ const CreateUser = () => {
       return;
     }
   }
+
+  console.log('edu', education);
+
 
   return (
     <>
@@ -151,6 +155,7 @@ const CreateUser = () => {
           <input
             type="text"
             value={country}
+            required
             id="country"
             onChange={(e) => setCountry(e.target.value)}
             placeholder="Digite seu país"
@@ -163,6 +168,7 @@ const CreateUser = () => {
             type="text"
             value={interesting}
             id="interesting"
+            required
             onChange={(e) => setInterest(e.target.value)}
             placeholder="Digite seus interesses"
             className="border rounded p-2 w-full"
@@ -173,6 +179,7 @@ const CreateUser = () => {
           <input
             type="text"
             value={city}
+            required
             id="city"
             onChange={(e) => setCity(e.target.value)}
             placeholder="Digite sua cidade"
@@ -185,6 +192,7 @@ const CreateUser = () => {
             type="text"
             value={work}
             id="work"
+            required
             onChange={(e) => setWork(e.target.value)}
             placeholder="Digite sua ocupação"
             className="border rounded p-2 w-full"
@@ -192,14 +200,12 @@ const CreateUser = () => {
         </div>
         <div>
           <label htmlFor="education">Educação:</label>
-          <input
-            type="text"
-            value={education}
-            id="education"
-            onChange={(e) => setEducation(e.target.value)}
-            placeholder="Digite seu nível de educação"
-            className="border rounded p-2 w-full"
-          />
+          <select required onChange={(e) => setEducation(e.target.value)}>
+            <option value="default">Escolha seu nível:</option>
+            {educationList.map((e, index) => (
+              <option key={index} value={e.school}>{e.school}</option>
+            ))}
+          </select>
         </div>
         <fieldset>
           <legend>Gênero:</legend>
