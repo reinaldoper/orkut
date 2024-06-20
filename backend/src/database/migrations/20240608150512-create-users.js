@@ -57,6 +57,42 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      phone_number: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      birthdate: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      hobbies: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      favorite_movies: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      favorite_books: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      favorite_music: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      language: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      favorite_food: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

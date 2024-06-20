@@ -1,19 +1,19 @@
 :root {
   margin: 0;
   box-sizing: border-box;
-  background-color: #D7DDF4;
+  background: #D7DDF4;
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
 }
 
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 100em;
+  height: 100%;
   background-color: #d7ddf4;
   padding: 20px;
-}
+} */
 
 .orkut-logo {
   font-size: 4em; 
@@ -25,11 +25,11 @@
   text-shadow: 0px 2px 4px rgba(0,0,0,0.5); 
 }
 
-.content-header-page{
+/* .content-header-page{
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
-}
+} */
 
 .content-page {
   display: flex;

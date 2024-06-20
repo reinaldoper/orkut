@@ -17,7 +17,10 @@ class UserService {
 
   createUser = async (user: TTypeUser, image: Express.Multer.File | undefined): Promise<TTypeUser | string> => {
     const { name, genro, email, password, relationship, interesting, country,
-      city, work, age, education } = user
+      city, work, age, education, phone_number,
+      birthdate, bio, hobbies,
+      favorite_movies, favorite_books, favorite_music,
+      language, favorite_food } = user
     try {
       const newUser = await UserModel.create({
         attributes: { exclude: ['password'] },
@@ -33,6 +36,15 @@ class UserService {
         work,
         age,
         education,
+        phone_number,
+        birthdate,
+        bio,
+        hobbies,
+        favorite_movies,
+        favorite_books,
+        favorite_music,
+        language,
+        favorite_food
       });
       return newUser as unknown as TTypeUser;
     } catch (error) {

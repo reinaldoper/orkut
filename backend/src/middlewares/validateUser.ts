@@ -15,6 +15,15 @@ const validateUser = (req: Request, res: Response, next: NextFunction) => {
     work: z.string().min(1, "Work must be at least 1 character"),
     education: z.string().min(1, "Education must be at least 1 character"),
     age: z.string().min(1, "Age must be at least 1 character"),
+    phone_number: z.string().min(1, "Phone number must be at least 1 character"),
+    birthdate: z.string().min(1, "Birthdate must be at least 1 character"),
+    bio: z.string().min(1, "Bio must be at least 1 character"),
+    hobbies: z.string().min(1, "Hobbies must be at least 1 character"),
+    favorite_music: z.string().min(1, "Favorite music must be at least 1 character"),
+    favorite_movies: z.string().min(1, "Favorite movie must be at least 1 character"),
+    favorite_books: z.string().min(1, "Favorite book must be at least 1 character"),
+    language: z.string().min(1, "Languages must be at least 1 character"),
+    favorite_food: z.string().min(1, "Favorite food must be at least 1 character"),
   });
 
   try {

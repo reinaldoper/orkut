@@ -1,11 +1,10 @@
 .content-header {
   display: flex;
-  background: linear-gradient(140deg, #C3D1ED 80%, transparent 50%);
+  background: linear-gradient(140deg, #99aed8 80%, transparent 50%);
   width: 70vw;
-  height: 50px;
+  height: 65px;
   align-items: center;
-  padding: 0 0 0 5px;
-  border-radius: 20px;
+  padding: 0 0 0 10px;
 }
 
 a {

@@ -14,6 +14,15 @@ class Users extends Model {
   declare work: string;
   declare education: string;
   declare age: string;
+  declare phone_number: string;
+  declare birthdate: string;
+  declare bio: string;
+  declare hobbies: string;
+  declare favorite_movies: string;
+  declare favorite_books: string;
+  declare favorite_music: string;
+  declare favorite_food: string;
+  declare language: string;
 }
 
 Users.init({
@@ -68,6 +77,42 @@ Users.init({
     allowNull: false,
   },
   age: {
+    type: STRING,
+    allowNull: false,
+  },
+  phone_number: {
+    type: STRING,
+    allowNull: false,
+  },
+  birthdate: {
+    type: STRING,
+    allowNull: false,
+  },
+  bio: {
+    type: STRING,
+    allowNull: false,
+  },
+  hobbies: {
+    type: STRING,
+    allowNull: false,
+  },
+  favorite_movies: {
+    type: STRING,
+    allowNull: false,
+  },
+  favorite_books: {
+    type: STRING,
+    allowNull: false,
+  },
+  favorite_music: {
+    type: STRING,
+    allowNull: false,
+  },
+  language: {
+    type: STRING,
+    allowNull: false,
+  },
+  favorite_food: {
     type: STRING,
     allowNull: false,
   },

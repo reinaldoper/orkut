@@ -5,17 +5,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import fetchUsers from '../services/fetchUsers'
 import { ISubmit } from '../types/TUser';
+import Alert from '../utils/alert';
 
 function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const navigate = useNavigate();
 
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
     const body = {
-      email: email ?  email : '',
+      email: email ? email : '',
       password: password ? password : ''
     }
     const options = {
@@ -23,9 +25,9 @@ function Home() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     };
-    const { token, error } = await fetchUsers('login',options);
+    const { token, error } = await fetchUsers('login', options);
     if (error) {
-      alert(error);
+      setError(error);
     } else {
       localStorage.setItem('token', JSON.stringify(token));
       navigate('/content-page');
@@ -33,23 +35,27 @@ function Home() {
   };
 
 
+
   return (
-    <div className="container">
-      <div className='content-header-page'>
+    <div className="flex flex-col ">
+      <div className='content-header-page flex m-3 bg-blue-400'>
         <Header />
         <h1 className='orkut-logo'>Orkut</h1>
       </div>
+      {error && <Alert errorAlert={{
+        error,
+        setError
+      }} />}
       <div className="content-page">
         <div className="image-container">
           <img className="orkut-img" src={orkut_png} alt="orkut" title="orkut-page" />
         </div>
         <div className="login-container">
-          <form onSubmit={onSubmit} className="login">
+          <form onSubmit={onSubmit} className="login text-slate-600 shadow-2xl">
             <h3>Login</h3>
-            {/* <h4>Acesse o Orkut com sua conta do Google</h4> */}
             <label>
               E-mail:
-              <input required type="email" onChange={(e) => setEmail(e.target.value)} className="email" />
+              <input required type="email" onChange={(e) => setEmail(e.target.value)} className="text-slate-500 email border-none" />
             </label>
             <label>
               Senha:

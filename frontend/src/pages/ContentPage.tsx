@@ -1,10 +1,11 @@
 import Content from "../components/Content"
+import '../styles/Content.css'
 
 const ContentPage = () => {
   return (
-    <div className="bg-slate-300 max-h-full">
+    <>
       <Content />
-    </div>
+    </>
   )
 }
 
