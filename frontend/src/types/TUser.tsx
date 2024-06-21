@@ -5,6 +5,7 @@ export interface ISubmit {
 
 export interface User {
   id?: number;
+  bio: string;
   name: string;
   genro: string;
   email: string;
@@ -23,6 +24,7 @@ export interface User {
   favorite_music: string;
   hobbies: string;
   birthdate: string;
+  posts: IPost[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -30,7 +32,28 @@ export interface User {
 export interface IError {
   errorAlert: {
     error: string;
-    setError: (e: string)  => void;
+    setError: (e: string) => void;
   }
-  
+
+}
+
+export interface IPost {
+  id: number;
+  title: string;
+  content: string;
+  likes: number;
+  userId: number;
+  categoryId: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photos[]
+}
+
+export interface Photos {
+  id: number;
+  title: string;
+  url: string;
+  postId: number;
+  createdAt: string;
+  updatedAt: string
 }
