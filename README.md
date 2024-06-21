@@ -7,6 +7,11 @@
 - O front-end foi utiizado o React-vite com typeScript.
 - Para melhorar a escalabilidade e a resiliência da aplicação, foi integrada uma camada de mensageria utilizando RabbitMQ.
 
+## Tecnologias Utilizadas
+
+- **Backend**: Node.js, Express, Docker, Sequelize, TypeScript
+- **Frontend**: React-vite, TypeScript
+- **Autenticação**: JWT
 
 ## Pré-requisitos
 
