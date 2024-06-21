@@ -6,6 +6,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import About from "../components/About";
 import PostUser from "../pages/PostUser";
 import PostFormUser from "../pages/PostFormUser";
+import PostList from "../pages/PostList";
 
 const routerRoute = () => {
   return (
@@ -19,6 +20,7 @@ const routerRoute = () => {
           <Route path="/about" element={<About />}></Route>
           <Route path="/post-user" element={<PostUser />}></Route>
           <Route path="post-form" element={<PostFormUser />}></Route>
+          <Route path="post-list" element={<PostList />}></Route>
         </Routes>
       </BrowserRouter>
     </>

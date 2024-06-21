@@ -73,6 +73,7 @@ const FormPost = () => {
   return (
     <div className="flex justify-center">
       <form onSubmit={onSubmit} className="flex flex-col m-4 space-y-4 p-4">
+        <label className="text-2xl text-blue-700" htmlFor="name">No que está pensando??</label>
         {error && <Alert errorAlert={{
           error,
           setError
@@ -103,6 +104,7 @@ const FormPost = () => {
           value={selectedCategoryId}
           onChange={(e) => setSelectedCategoryId(e.target.value)}
           name="category"
+          className="p-2"
           required
         >
           <option>Default...</option>
