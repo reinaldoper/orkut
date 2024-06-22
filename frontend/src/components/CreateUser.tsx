@@ -1,14 +1,14 @@
-import { ISubmit } from "../types/TUser"
-import { ChangeEvent, useState } from "react"
-import fetchUsers from '../services/fetchUsers'
-import { useNavigate } from "react-router-dom"
-import NavLink from "./NavLink"
-import educationList from "../utils/education"
-import Alert from "../utils/alert"
+import { ISubmit } from "../types/TUser";
+import { ChangeEvent, useState } from "react";
+import fetchUsers from '../services/fetchUsers';
+import { useNavigate } from "react-router-dom";
+import NavLink from "./NavLink";
+import educationList from "../utils/education";
+import Alert from "../utils/alert";
 
 const CreateUser = () => {
-  const [file, setFile] = useState<File | null>(null)
-  const [age, setAge] = useState<string>('')
+  const [file, setFile] = useState<File | null>(null);
+  const [age, setAge] = useState<string>('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ const CreateUser = () => {
   const [favoriteMusic, setFavoriteMusic] = useState('');
   const [language, setLanguage] = useState('');
   const [favoriteFood, setFavoriteFood] = useState('');
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const CreateUser = () => {
   };
 
   const onSubmit = async (e: ISubmit) => {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
@@ -75,25 +75,22 @@ const CreateUser = () => {
       method: 'POST',
       body: formData,
     };
-    const { message, error } = await fetchUsers('', options)
+    const { message, error } = await fetchUsers('', options);
     if (message) navigate('/');
     if (error) {
-      setError(error)
+      setError(error);
       return;
     }
-  }
-
+  };
 
   return (
     <>
       <NavLink />
-      {error && <Alert errorAlert={{
-        error,
-        setError
-      }} />}
-      <form encType="multipart/form-data" onSubmit={onSubmit} className="space-y-4 p-4" style={{ margin: '0 10px' }}>
+      {error && <Alert errorAlert={{ error, setError }} />}
+      <form encType="multipart/form-data" onSubmit={onSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md space-y-4">
+        <h2 className="text-2xl font-bold mb-4 text-blue-600">Criar Novo Usuário</h2>
         <div>
-          <label htmlFor="name">Nome:</label>
+          <label htmlFor="name" className="block text-gray-700 font-bold">Nome:</label>
           <input
             type="text"
             value={name}
@@ -105,7 +102,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="email">E-mail:</label>
+          <label htmlFor="email" className="block text-gray-700 font-bold">E-mail:</label>
           <input
             type="email"
             value={email}
@@ -117,7 +114,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">Senha:</label>
+          <label htmlFor="password" className="block text-gray-700 font-bold">Senha:</label>
           <input
             type="password"
             value={password}
@@ -128,7 +125,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="age">Idade:</label>
+          <label htmlFor="age" className="block text-gray-700 font-bold">Idade:</label>
           <input
             type="text"
             id="age"
@@ -139,7 +136,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="image">Foto de Perfil:</label>
+          <label htmlFor="image" className="block text-gray-700 font-bold">Foto de Perfil:</label>
           <input
             type="file"
             id="image"
@@ -149,7 +146,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="phone_number">Número de Telefone:</label>
+          <label htmlFor="phone_number" className="block text-gray-700 font-bold">Número de Telefone:</label>
           <input
             type="text"
             value={phoneNumber}
@@ -161,7 +158,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="birthdate">Data de Nascimento:</label>
+          <label htmlFor="birthdate" className="block text-gray-700 font-bold">Data de Nascimento:</label>
           <input
             type="date"
             value={birthdate}
@@ -172,7 +169,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="bio">Biografia:</label>
+          <label htmlFor="bio" className="block text-gray-700 font-bold">Biografia:</label>
           <textarea
             value={bio}
             id="bio"
@@ -183,7 +180,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="hobbies">Hobbies:</label>
+          <label htmlFor="hobbies" className="block text-gray-700 font-bold">Hobbies:</label>
           <input
             type="text"
             value={hobbies}
@@ -195,7 +192,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="favorite_movies">Filmes Favoritos:</label>
+          <label htmlFor="favorite_movies" className="block text-gray-700 font-bold">Filmes Favoritos:</label>
           <input
             type="text"
             value={favoriteMovies}
@@ -207,7 +204,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="favorite_books">Livros Favoritos:</label>
+          <label htmlFor="favorite_books" className="block text-gray-700 font-bold">Livros Favoritos:</label>
           <input
             type="text"
             value={favoriteBooks}
@@ -219,7 +216,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="favorite_music">Músicas Favoritas:</label>
+          <label htmlFor="favorite_music" className="block text-gray-700 font-bold">Músicas Favoritas:</label>
           <input
             type="text"
             value={favoriteMusic}
@@ -231,7 +228,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="language">Idioma:</label>
+          <label htmlFor="language" className="block text-gray-700 font-bold">Idioma:</label>
           <input
             type="text"
             value={language}
@@ -243,7 +240,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="favorite_food">Comida Favorita:</label>
+          <label htmlFor="favorite_food" className="block text-gray-700 font-bold">Comida Favorita:</label>
           <input
             type="text"
             value={favoriteFood}
@@ -254,33 +251,35 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <fieldset>
-          <legend>Estado Civil:</legend>
-          <div>
-            <label htmlFor="single">Solteiro(a):</label>
-            <input
-              type="radio"
-              value="single"
-              id="single"
-              name="relationship"
-              required
-              onChange={(e) => setRelationship(e.target.value)}
-              className="mr-2"
-            />
-            <label htmlFor="married">Casado(a):</label>
-            <input
-              type="radio"
-              value="married"
-              id="married"
-              name="relationship"
-              required
-              onChange={(e) => setRelationship(e.target.value)}
-              className="mr-2"
-            />
+        <fieldset className="border rounded p-2">
+          <legend className="text-gray-700 font-bold">Estado Civil:</legend>
+          <div className="flex items-center gap-4">
+            <label htmlFor="single" className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="single"
+                id="single"
+                name="relationship"
+                required
+                onChange={(e) => setRelationship(e.target.value)}
+              />
+              Solteiro(a)
+            </label>
+            <label htmlFor="married" className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="married"
+                id="married"
+                name="relationship"
+                required
+                onChange={(e) => setRelationship(e.target.value)}
+              />
+              Casado(a)
+            </label>
           </div>
         </fieldset>
         <div>
-          <label htmlFor="country">País:</label>
+          <label htmlFor="country" className="block text-gray-700 font-bold">País:</label>
           <input
             type="text"
             value={country}
@@ -292,7 +291,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="interesting">Interesses:</label>
+          <label htmlFor="interesting" className="block text-gray-700 font-bold">Interesses:</label>
           <input
             type="text"
             value={interesting}
@@ -304,7 +303,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="city">Cidade:</label>
+          <label htmlFor="city" className="block text-gray-700 font-bold">Cidade:</label>
           <input
             type="text"
             value={city}
@@ -316,7 +315,7 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="work">Trabalho:</label>
+          <label htmlFor="work" className="block text-gray-700 font-bold">Trabalho:</label>
           <input
             type="text"
             value={work}
@@ -328,43 +327,45 @@ const CreateUser = () => {
           />
         </div>
         <div>
-          <label htmlFor="education">Educação:</label>
-          <select required onChange={(e) => setEducation(e.target.value)}>
+          <label htmlFor="education" className="block text-gray-700 font-bold">Educação:</label>
+          <select required onChange={(e) => setEducation(e.target.value)} className="border rounded p-2 w-full">
             <option value="default">Escolha seu nível:</option>
             {educationList.map((e, index) => (
               <option key={index} value={e.school}>{e.school}</option>
             ))}
           </select>
         </div>
-        <fieldset>
-          <legend>Gênero:</legend>
-          <div>
-            <label htmlFor="male">Masculino:</label>
-            <input
-              type="radio"
-              value="male"
-              id="male"
-              name="gender"
-              required
-              onChange={(e) => setGender(e.target.value)}
-              className="mr-2"
-            />
-            <label htmlFor="female">Feminino:</label>
-            <input
-              type="radio"
-              value="female"
-              id="female"
-              name="gender"
-              required
-              onChange={(e) => setGender(e.target.value)}
-              className="mr-2"
-            />
+        <fieldset className="border rounded p-2">
+          <legend className="text-gray-700 font-bold">Gênero:</legend>
+          <div className="flex items-center gap-4">
+            <label htmlFor="male" className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="male"
+                id="male"
+                name="gender"
+                required
+                onChange={(e) => setGender(e.target.value)}
+              />
+              Masculino
+            </label>
+            <label htmlFor="female" className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="female"
+                id="female"
+                name="gender"
+                required
+                onChange={(e) => setGender(e.target.value)}
+              />
+              Feminino
+            </label>
           </div>
         </fieldset>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">Cadastrar</button>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700">Cadastrar</button>
       </form>
     </>
-  )
+  );
 }
 
-export default CreateUser
+export default CreateUser;
