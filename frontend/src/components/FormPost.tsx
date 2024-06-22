@@ -1,130 +1,131 @@
-import { useEffect, useState } from "react"
-import fetchCategory from "../services/fetchCategory"
-import { ICategory } from "../types/TCategory"
-import Alert from "../utils/alert"
-import { ISubmit } from "../types/TUser"
-import fetchPosts from "../services/fetchPosts"
-import { useNavigate } from "react-router-dom"
-
+import { useEffect, useState } from "react";
+import fetchCategory from "../services/fetchCategory";
+import { ICategory } from "../types/TCategory";
+import Alert from "../utils/alert";
+import { ISubmit } from "../types/TUser";
+import fetchPosts from "../services/fetchPosts";
+import { useNavigate } from "react-router-dom";
 
 const FormPost = () => {
-  const [error, setError] = useState('')
-  const [category, setCategory] = useState<ICategory[]>()
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [selectedCategoryId, setSelectedCategoryId] = useState('')
+  const [error, setError] = useState('');
+  const [category, setCategory] = useState<ICategory[]>();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const reqUser = async () => {
-      const token = localStorage.getItem('token') ?? ''
+      const token = localStorage.getItem('token') ?? '';
       const header = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': JSON.parse(token)
         }
-      }
+      };
       const options = {
         method: 'GET',
         headers: header.headers,
       };
-      const { message, error } = await fetchCategory('', options)
+      const { message, error } = await fetchCategory('', options);
       if (error) {
-        setError(error)
-        return
+        setError(error);
+        return;
       }
-      setCategory(message)
-    }
-    reqUser()
-  }, [])
+      setCategory(message);
+    };
+    reqUser();
+  }, []);
 
   const onSubmit = async (e: ISubmit) => {
-    e.preventDefault()
+    e.preventDefault();
     if (selectedCategoryId.length === 0) {
-      setError('Preencha todos os campos!')
-      return
+      setError('Preencha todos os campos!');
+      return;
     }
-    const token = localStorage.getItem('token') ?? ''
+    const token = localStorage.getItem('token') ?? '';
     const header = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': JSON.parse(token)
       }
-    }
+    };
     const body = JSON.stringify({
       title,
       content,
       categoryId: Number(selectedCategoryId)
-    })
+    });
     const options = {
       method: 'POST',
       headers: header.headers,
       body
     };
-    const { error } = await fetchPosts('', options)
+    const { error } = await fetchPosts('', options);
     if (error) {
-      setError(error)
-      return
+      setError(error);
+      return;
     }
-    navigate('/content-page')
+    navigate('/post-list');
   };
 
   return (
-    <div className="flex justify-center">
-      <form onSubmit={onSubmit} className="flex flex-col m-4 space-y-4 p-4">
-        <label className="text-2xl text-blue-700" htmlFor="name">No que está pensando??</label>
-        {error && <Alert errorAlert={{
-          error,
-          setError
-        }} />}
-        <label htmlFor="name">Titulo:</label>
-        <input
-          value={title}
-          id="name"
-          required
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Digite um titulo..."
-          className="border rounded p-2 w-full"
-        />
-        <label htmlFor="name">Conteúdo:</label>
-        <textarea
-          value={content}
-          id="name"
-          required
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Digite um conteúdo..."
-          className="border rounded p-2 w-full"
-          rows={10}
-          cols={50}
-          minLength={10}
-        />
-        <label htmlFor="name">Categoria:</label>
-        <select
-          value={selectedCategoryId}
-          onChange={(e) => setSelectedCategoryId(e.target.value)}
-          name="category"
-          className="p-2"
-          required
-        >
-          <option>Default...</option>
-          {category?.map((c, index) => (
-            <option key={index} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-green-600 text-white p-2 rounded"
-        >
-          Publicar
-        </button>
-
+    <div className="flex justify-center mt-8">
+      <form onSubmit={onSubmit} className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-bold mb-4 text-blue-600">No que você está pensando?</h2>
+        {error && <Alert errorAlert={{ error, setError }} />}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="title">Título:</label>
+          <input
+            value={title}
+            id="title"
+            required
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Digite um título..."
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="content">Conteúdo:</label>
+          <textarea
+            value={content}
+            id="content"
+            required
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Digite o conteúdo..."
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            rows={5}
+            minLength={10}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="category">Categoria:</label>
+          <select
+            value={selectedCategoryId}
+            onChange={(e) => setSelectedCategoryId(e.target.value)}
+            name="category"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          >
+            <option value="">Selecione uma categoria...</option>
+            {category?.map((c, index) => (
+              <option key={index} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Publicar
+          </button>
+        </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default FormPost
+export default FormPost;
