@@ -1,13 +1,15 @@
-
 import fetchUsers from "../services/fetchUsers";
 import { useEffect, useState } from "react";
 import { User } from "../types/TUser"
 import Alert from "../utils/alert";
 import Icons from "../utils/Icons";
+import LoadingPage from "../pages/LoadingPage";
 
 const Content = () => {
   const [users, setUsers] = useState<User>()
   const [error, setError] = useState('')
+  const [loadings, setLoading] = useState(false)
+  
   useEffect(() => {
     const reqUser = async () => {
       const token = localStorage.getItem('token') ?? ''
@@ -26,6 +28,7 @@ const Content = () => {
         setError(error)
         return
       }
+      setLoading(true)
       setUsers(message)
     }
     reqUser()
@@ -33,11 +36,14 @@ const Content = () => {
 
 
   const URL = users?.image ? `http://172.16.238.10:3000${users.image}` : ''
-  
+
 
   return (
     <>
-      <div className="flex flex-wrap m-6">
+      {!loadings ? <div>
+        <Alert errorAlert={{ error, setError }} />
+        <LoadingPage />
+      </div> : <div className="flex flex-wrap m-6">
         <div className="bg-slate-300">
           {error && <Alert errorAlert={{
             error,
@@ -73,7 +79,8 @@ const Content = () => {
             <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">favorite_music: <span className="text-black">{users?.favorite_music}</span></h3>
           </div>
         </div>
-      </div>
+      </div>}
+
     </>
   )
 }
