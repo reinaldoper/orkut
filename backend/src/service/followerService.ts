@@ -1,4 +1,3 @@
-import { unknown } from "zod";
 import FollowersModel from "../database/models/followersModel";
 import  UserModel from "../database/models/usersModel";
 import TFollowers from "../types/TTypeFollowers";
@@ -69,6 +68,22 @@ class FollowerService {
         followerId
       }
     });
+  }
+
+  async getFollowersByUserIdAndFollowerId(userId: number, followerId: number): Promise<TFollowers | null> {
+    const followers = await FollowersModel.findOne({
+      where: {
+        userId,
+        followerId
+      }
+    });
+
+    return followers as unknown as TFollowers;
+  }
+
+  async getAllFollowers(): Promise<TFollowers[]> {
+    const followers = await FollowersModel.findAll();
+    return followers as unknown as TFollowers[];
   }
 }
 

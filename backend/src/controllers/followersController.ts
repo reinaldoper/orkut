@@ -44,8 +44,7 @@ class FollowerController implements FollowerDto {
   }
 
   async getFollowing(req: Request, res: Response) {
-    const { id } = req.body.id;
-    const following = await followerService.getFollowingById(Number(id));
+    const following = await followerService.getAllFollowers();
     return res.status(statusCodes.OK).json({ message: following });
   }
 }
