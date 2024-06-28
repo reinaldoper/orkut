@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import fetchCategory from "../services/fetchCategory";
 import { ICategory } from "../types/TCategory";
 import Alert from "../utils/alert";
@@ -17,29 +17,32 @@ const FormPost = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const reqUser = async () => {
-      const token = localStorage.getItem('token') ?? '';
-      const header = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': JSON.parse(token)
-        }
-      };
-      const options = {
-        method: 'GET',
-        headers: header.headers,
-      };
-      const { message, error } = await fetchCategory('', options);
-      if (error) {
-        setError(error);
-        return;
+  const getToken = () => localStorage.getItem('token') ?? '';
+
+  const reqUser = useCallback(async () => {
+    const token = getToken()
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(token)
       }
-      setLoading(true);
-      setCategory(message);
     };
-    reqUser();
+    const options = {
+      method: 'GET',
+      headers: header.headers,
+    };
+    const { message, error } = await fetchCategory('', options);
+    if (error) {
+      setError(error);
+      return;
+    }
+    setLoading(true);
+    setCategory(message);
   }, []);
+
+  useEffect(() => {
+    reqUser();
+  }, [reqUser]);
 
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
@@ -47,7 +50,7 @@ const FormPost = () => {
       setError('Preencha todos os campos!');
       return;
     }
-    const token = localStorage.getItem('token') ?? '';
+    const token = getToken();
     const header = {
       headers: {
         'Content-Type': 'application/json',
