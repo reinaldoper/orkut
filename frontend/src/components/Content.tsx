@@ -51,7 +51,7 @@ const Content = () => {
           }} />}
           {users && (
             <div className="bg-blue-300 flex flex-col p-8 w-52 h-auto m-12 rounded-r-xl shadow-md">
-              <img className="w-32 h-32 rounded-full p-2" src={URL} alt="This is me" title="This is me" />
+              <img className="w-32 h-32 rounded-full p-2 hover:scale-150" src={URL} alt="This is me" title="This is me" />
               <p className="p-2 text-blue-800">{users.name}</p>
               <p className="p-2 text-gray-500">{users.country}</p>
               <p className="p-2 text-gray-500">{users.city}</p>
@@ -67,16 +67,16 @@ const Content = () => {
             <p className="text-red-600 m-4">{users?.bio}</p>
             <Icons />
           </div>
-          <div className="bg-gray-200 p-5 mt-6 h-auto shadow-md">
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">education: <span className="text-black">{users?.education}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">country: <span className="text-black">{users?.country}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">interest: <span className="text-black">{users?.interesting}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">genre: <span className="text-black">{users?.genro}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">relationship: <span className="text-black">{users?.relationship}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">birthdate: <span className="text-black">{users?.birthdate}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">favorite_books: <span className="text-black">{users?.favorite_books}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">favorite_food: <span className="text-black">{users?.favorite_food}</span></h3>
-            <h3 className="text-gray-500 p-2 m-4 bg-blue-400 rounded">favorite_music: <span className="text-black">{users?.favorite_music}</span></h3>
+          <div className="bg-gray-200 hover:ps-10 hover:pe-10 p-5 mt-6 h-auto shadow-md">
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">education: <span className="text-black">{users?.education}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">country: <span className="text-black">{users?.country}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">interest: <span className="text-black">{users?.interesting}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">genre: <span className="text-black">{users?.genro}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">relationship: <span className="text-black">{users?.relationship}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">birthdate: <span className="text-black">{users?.birthdate}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_books: <span className="text-black">{users?.favorite_books}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_food: <span className="text-black">{users?.favorite_food}</span></h3>
+            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_music: <span className="text-black">{users?.favorite_music}</span></h3>
           </div>
         </div>
       </div>}

@@ -7,9 +7,9 @@ const NavLink = () => {
       <img className="m-2 h-10" src={logo} alt="Orkut" title="Orkut" />
       <nav className="flex gap-4 ml-4">
         <Link to="/" className="hover:text-blue-200">Home</Link>
-        <Link to="/content-page" className="hover:text-blue-200">Perfil</Link>
-        <Link to="/post-form" className="hover:text-blue-200">Criar Postagem</Link>
-        <Link to="/post-list" className="hover:text-blue-200">Postagens</Link>
+        <Link to="/content-page" className="hover:text-blue-200">Profile</Link>
+        <Link to="/post-form" className="hover:text-blue-200">Create post</Link>
+        <Link to="/post-list" className="hover:text-blue-200">Posts</Link>
       </nav>
     </div>
   );
