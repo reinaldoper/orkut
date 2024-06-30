@@ -33,7 +33,6 @@ const ListPost = () => {
       formData.append('url', url);
     }
     formData.append('postId', id.toString());
-    console.log(formData.get('url'));
 
     const token = getToken();
     const header = {
@@ -52,6 +51,7 @@ const ListPost = () => {
     } else {
       setTitle('');
       setUrl(null);
+      setError('');
     }
   }, [title, url]);
 
@@ -86,6 +86,7 @@ const ListPost = () => {
       setError(error);
       return;
     }
+    setError('');
     setFollowers(message);
   }, []);
 
@@ -106,6 +107,7 @@ const ListPost = () => {
       setError(error);
       return;
     }
+    setError('');
     setPosts(message);
   }, []);
 
@@ -133,6 +135,7 @@ const ListPost = () => {
       setError(error);
       return;
     }
+    setError('');
     reqPosts();
   }, [reqPosts]);
 
@@ -142,12 +145,10 @@ const ListPost = () => {
     return JSON.parse(user) as unknown as User;
   }
 
-  console.log(posts, 'posts');
-
   const SRC = 'http://172.16.238.10:3000'
 
   return (
-    <div className="flex flex-col mx-auto bg-gray-100 p-6 rounded-lg shadow-md w-9/12 mt-8">
+    <div className="flex content flex-col mx-auto bg-gray-100 p-10 rounded-lg shadow-md w-10/12 mt-8">
       {error && <Alert errorAlert={{ error, setError }} />}
       <div className="hover:ps-10 hover:pe-10">
         {MessagePost()}
