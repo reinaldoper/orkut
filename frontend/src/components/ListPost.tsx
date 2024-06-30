@@ -184,10 +184,9 @@ const ListPost = () => {
                   <input placeholder="Titulo da foto" onChange={(e) => setTitle(e.target.value)} type="text" className="bg-slate-600 rounded-lg me-2" />
                   <input type="file" onChange={handleFileChange} className="bg-slate-600  rounded-lg me-2 placeholder-zinc-600 px-2 border" />
                   <button className="flex items-center gap-2 text-gray-700 hover:text-red-700" type="submit">
-                    <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Z" />
+                    <svg className="w-6 h-6 text-gray-800 dark:text-black hover:text-red-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M7.5 4.586A2 2 0 0 1 8.914 4h6.172a2 2 0 0 1 1.414.586L17.914 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1.086L7.5 4.586ZM10 12a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd" />
                     </svg>
-                    <span>Photo</span>
                   </button>
                 </form>
               )}
