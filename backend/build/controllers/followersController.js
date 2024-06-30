@@ -25,10 +25,10 @@ class FollowerController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
+                    return res.status(statusCodes_1.default.NOT_FOUND).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
@@ -45,10 +45,10 @@ class FollowerController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
+                    return res.status(statusCodes_1.default.NOT_FOUND).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
@@ -62,8 +62,7 @@ class FollowerController {
     }
     getFollowing(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.body.id;
-            const following = yield followerService_1.default.getFollowingById(Number(id));
+            const following = yield followerService_1.default.getAllFollowers();
             return res.status(statusCodes_1.default.OK).json({ message: following });
         });
     }

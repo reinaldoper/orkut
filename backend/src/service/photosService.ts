@@ -31,7 +31,7 @@ class PhotosService {
         });
     }
 
-    async create(photo: TPhoto, userId: number, url: Express.Multer.File | undefined): Promise<TPhoto> {
+    async create(photo: TPhoto, url: Express.Multer.File | undefined): Promise<TPhoto> {
       const { title = '', postId } = photo;
         const post = await PostsModel.findByPk(postId);
 
@@ -39,12 +39,8 @@ class PhotosService {
             throw new Error('Post not found');
         }
 
-        if (post.userId !== userId) {
-            throw new Error('Unauthorized');
-        }
-
         return await PhotosModel.create({
-            url: url? url.path : '',
+            url: `/uploads/${url?.filename}`,
             title,
             postId
         });

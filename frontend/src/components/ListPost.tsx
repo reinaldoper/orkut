@@ -1,18 +1,73 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, ChangeEvent, FormEvent } from "react";
 import fetchPosts from "../services/fetchPosts";
 import fetchFollow from "../services/fetchFollow";
+import fetchPhotos from "../services/fetchPhotos";
 import { IPost } from "../types/TUser";
 import { TFollowers } from "../types/IFollowers";
 import Alert from "../utils/alert";
 import MessagePost from "../utils/MessagePost";
 import '../styles/ListPost.css'
+import { User } from "../types/TUser";
+
 
 const ListPost = () => {
   const [posts, setPosts] = useState<IPost[]>();
   const [error, setError] = useState('');
   const [followers, setFollowers] = useState<TFollowers[]>();
+  const [title, setTitle] = useState('');
+  const [url, setUrl] = useState<File | null>(null);
 
   const getToken = () => localStorage.getItem('token') ?? '';
+  const getUser = () => localStorage.getItem('user') ?? '';
+
+  const handleFile = useCallback(async (event: FormEvent<HTMLFormElement>, id: number) => {
+    event.preventDefault();
+    if (title.length === 0 && url === null) {
+      setError('Preencha os campos.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    if (url) {
+      formData.append('url', url);
+    }
+    formData.append('postId', id.toString());
+    console.log(formData.get('url'));
+
+    const token = getToken();
+    const header = {
+      headers: {
+        'Authorization': JSON.parse(token)
+      }
+    };
+    const options = {
+      method: 'POST',
+      headers: header.headers,
+      body: formData
+    };
+    const { error } = await fetchPhotos('', options);
+    if (error) {
+      setError(error);
+    } else {
+      setTitle('');
+      setUrl(null);
+    }
+  }, [title, url]);
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const fileType = event.target.files[0].name.slice(-3);
+      if (fileType !== 'png' && fileType !== 'jpg' && fileType !== 'peg') {
+        setError('Apenas arquivos de imagem são permitidos.');
+        event.target.value = '';
+        return;
+      }
+      setUrl(event.target.files[0]);
+    } else {
+      setUrl(null);
+    }
+  };
 
   const reqFollowers = useCallback(async () => {
     const token = getToken();
@@ -57,7 +112,8 @@ const ListPost = () => {
   useEffect(() => {
     reqPosts();
     reqFollowers();
-  }, [reqPosts, reqFollowers]);
+    handleFile({} as FormEvent<HTMLFormElement>, 0)
+  }, [reqPosts, reqFollowers, handleFile]);
 
   const handleLikes = useCallback(async (id: number) => {
     const token = getToken();
@@ -80,6 +136,16 @@ const ListPost = () => {
     reqPosts();
   }, [reqPosts]);
 
+  const reqUser = (): User => {
+    const user = getUser();
+
+    return JSON.parse(user) as unknown as User;
+  }
+
+  console.log(posts, 'posts');
+
+  const SRC = 'http://172.16.238.10:3000'
+
   return (
     <div className="flex flex-col mx-auto bg-gray-100 p-6 rounded-lg shadow-md w-9/12 mt-8">
       {error && <Alert errorAlert={{ error, setError }} />}
@@ -91,6 +157,13 @@ const ListPost = () => {
           <div key={post.id} className="bg-white p-6 mt-4 rounded-lg shadow-md">
             <h2 className="text-blue-600 mb-2">{post.title}</h2>
             <p className="mb-4">{post.content}</p>
+            <div className="flex flex-wrap">
+              {post.photos.length > 0 && post.photos.map((photo) => (
+                <div key={photo.id} className="bg-slate-400">
+                  <img className="w-32 h-32 rounded-3xl p-2 hover:scale-150" src={`${SRC}${photo.url ?? ''}`} alt={photo.title} />
+                </div>
+              ))}
+            </div>
             <div className="flex my-8">
               <button onClick={() => handleLikes(post.id)} className="flex items-center gap-2 text-gray-700 hover:text-red-700" type="button">
                 <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -106,6 +179,18 @@ const ListPost = () => {
                   return follower.userId === post.userId ? count + 1 : count;
                 }, 0)})
               </span>
+              {Number(reqUser()?.id) === post.userId && (
+                <form className="flex flex-wrap border-b-dark" encType="multipart/form-data" onSubmit={(event) => handleFile(event, post.id)}>
+                  <input placeholder="Titulo da foto" onChange={(e) => setTitle(e.target.value)} type="text" className="bg-slate-600 rounded-lg me-2" />
+                  <input type="file" onChange={handleFileChange} className="bg-slate-600  rounded-lg me-2 placeholder-zinc-600 px-2 border" />
+                  <button className="flex items-center gap-2 text-gray-700 hover:text-red-700" type="submit">
+                    <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Z" />
+                    </svg>
+                    <span>Photo</span>
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         ))}

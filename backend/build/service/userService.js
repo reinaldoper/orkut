@@ -18,22 +18,35 @@ const photosModel_1 = __importDefault(require("../database/models/photosModel"))
 const followersModel_1 = __importDefault(require("../database/models/followersModel"));
 const followingModel_1 = __importDefault(require("../database/models/followingModel"));
 const categoriesModel_1 = __importDefault(require("../database/models/categoriesModel"));
+const fs_1 = __importDefault(require("fs"));
 class UserService {
     constructor() {
-        this.createUser = (user) => __awaiter(this, void 0, void 0, function* () {
-            const { name, email, password, image, relationship, interesting, city, work, age, education } = user;
+        this.createUser = (user, image) => __awaiter(this, void 0, void 0, function* () {
+            const { name, genro, email, password, relationship, interesting, country, city, work, age, education, phone_number, birthdate, bio, hobbies, favorite_movies, favorite_books, favorite_music, language, favorite_food } = user;
             try {
                 const newUser = yield usersModel_1.default.create({
+                    attributes: { exclude: ['password'] },
                     name,
+                    genro,
                     email,
                     password,
-                    image,
+                    image: `/uploads/${image === null || image === void 0 ? void 0 : image.filename}`,
                     relationship,
                     interesting,
+                    country,
                     city,
                     work,
                     age,
-                    education
+                    education,
+                    phone_number,
+                    birthdate,
+                    bio,
+                    hobbies,
+                    favorite_movies,
+                    favorite_books,
+                    favorite_music,
+                    language,
+                    favorite_food
                 });
                 return newUser;
             }
@@ -52,6 +65,7 @@ class UserService {
                 if (!user) {
                     throw new Error('User not found');
                 }
+                fs_1.default.unlinkSync(user.image);
                 yield usersModel_1.default.destroy({ where: { id } });
                 return 'User deleted successfully';
             }

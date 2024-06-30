@@ -7,9 +7,8 @@ import PhotoDto from '../Dtos/photoDTO';
 class PhotosController implements PhotoDto {
   async create(req: Request, res: Response) {
     try {
-      const { id: userId } = req.body.id;
       const url: Express.Multer.File | undefined = req.file;
-      const photo = await photosService.create(req.body, userId, url);
+      const photo = await photosService.create(req.body, url);
       return res.status(statusCodes.CREATED).json({ message: photo });
     } catch (error) {
       if (error instanceof Error) {

@@ -17,6 +17,10 @@ Users.init({
         type: sequelize_1.STRING,
         allowNull: false,
     },
+    genro: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
     email: {
         type: sequelize_1.STRING,
         allowNull: false,
@@ -28,13 +32,17 @@ Users.init({
     },
     image: {
         type: sequelize_1.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     relationship: {
         type: sequelize_1.STRING,
         allowNull: false,
     },
     interesting: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    country: {
         type: sequelize_1.STRING,
         allowNull: false,
     },
@@ -51,6 +59,42 @@ Users.init({
         allowNull: false,
     },
     age: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    phone_number: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    birthdate: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    bio: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    hobbies: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    favorite_movies: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    favorite_books: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    favorite_music: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    language: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    favorite_food: {
         type: sequelize_1.STRING,
         allowNull: false,
     },

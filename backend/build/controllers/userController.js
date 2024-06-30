@@ -22,8 +22,9 @@ class UserController {
             const { password } = req.body;
             const hashPassword = bcryptjs_1.default.hashSync(password, 10);
             req.body.password = hashPassword;
-            const user = yield userService_1.default.createUser(req.body);
-            return res.status(statusCodes_1.default.CREATED).json(user);
+            const image = req.file;
+            const user = yield userService_1.default.createUser(req.body, image);
+            return res.status(statusCodes_1.default.CREATED).json({ message: user });
         });
     }
     login(req, res) {
@@ -31,11 +32,11 @@ class UserController {
             const { email, password } = req.body;
             const user = yield userService_1.default.getUserEmail(email);
             if (!user) {
-                return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: "Invalid email" });
+                return res.status(statusCodes_1.default.BAD_REQUEST).json({ error: "Invalid email" });
             }
             const isPasswordValid = bcryptjs_1.default.compareSync(password, user.password);
             if (!isPasswordValid) {
-                return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: "Invalid password" });
+                return res.status(statusCodes_1.default.BAD_REQUEST).json({ error: "Invalid password" });
             }
             const token = jsonwebtoken_1.default.sign({ email: user.email, id: user.id }, 'secretKey');
             return res.status(statusCodes_1.default.OK).json({ token: token });
@@ -49,8 +50,9 @@ class UserController {
     }
     findById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const user = yield userService_1.default.getUserId(Number(id));
+            /* const { id } = req.params; */
+            const userId = req.body.id;
+            const user = yield userService_1.default.getUserId(Number(userId.id));
             return res.status(statusCodes_1.default.OK).json({ message: user });
         });
     }
@@ -59,7 +61,7 @@ class UserController {
             const { id } = req.params;
             const { id: userId } = req.body.id;
             if (userId !== Number(id))
-                return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: "User not authorization" });
+                return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: "User not authorization" });
             const user = yield userService_1.default.deleteUserById(Number(id));
             return res.status(statusCodes_1.default.OK).json({ message: user });
         });
@@ -71,7 +73,7 @@ class UserController {
             if (user)
                 return res.status(statusCodes_1.default.OK).json({ message: user });
             else
-                return res.status(statusCodes_1.default.NOT_FOUND).json({ message: "User not found" });
+                return res.status(statusCodes_1.default.NOT_FOUND).json({ error: "User not found" });
         });
     }
     getUserFollowingById(req, res) {
@@ -81,7 +83,17 @@ class UserController {
             if (user)
                 return res.status(statusCodes_1.default.OK).json({ message: user });
             else
-                return res.status(statusCodes_1.default.NOT_FOUND).json({ message: "User not found" });
+                return res.status(statusCodes_1.default.NOT_FOUND).json({ error: "User not found" });
+        });
+    }
+    getUserByEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            const user = yield userService_1.default.getUserEmail(email);
+            if (user)
+                return res.status(statusCodes_1.default.OK).json({ message: user });
+            else
+                return res.status(statusCodes_1.default.NOT_FOUND).json({ error: "User not found" });
         });
     }
 }

@@ -22,6 +22,9 @@ class UserDto {
   getUserFollowingById(req: Request, res: Response): Promise<Response> {
     throw new Error("Method not implemented.");
   }
+  getUserByEmail(req: Request, res: Response): Promise<Response> {
+    throw new Error("Method not implemented.");
+  }
 }
 
 export default UserDto;

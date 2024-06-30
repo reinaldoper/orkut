@@ -17,9 +17,9 @@ const validateId = (req, res, next) => {
     }
     catch (err) {
         if (err instanceof zod_1.ZodError) {
-            return res.status(statusCodes_1.default.BAD_REQUEST).json({ message: err.errors[0].message });
+            return res.status(statusCodes_1.default.BAD_REQUEST).json({ error: err.errors[0].message });
         }
-        return res.status(statusCodes_1.default.ERROR).json({ message: "Internal server error" });
+        return res.status(statusCodes_1.default.ERROR).json({ error: "Internal server error" });
     }
 };
 exports.default = validateId;

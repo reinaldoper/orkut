@@ -19,15 +19,16 @@ class PhotosController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id: userId } = req.body.id;
-                const photo = yield photosService_1.default.create(req.body, userId);
+                const url = req.file;
+                const photo = yield photosService_1.default.create(req.body, userId, url);
                 return res.status(statusCodes_1.default.CREATED).json({ message: photo });
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
+                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
@@ -55,10 +56,10 @@ class PhotosController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
+                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
@@ -68,15 +69,16 @@ class PhotosController {
             try {
                 const { id } = req.params;
                 const { id: userId } = req.body.id;
-                const update = yield photosService_1.default.update(Number(id), req.body, userId);
+                const url = req.file;
+                const update = yield photosService_1.default.update(Number(id), req.body, userId, url);
                 return res.status(statusCodes_1.default.OK).json({ message: update });
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: error.message });
+                    return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });

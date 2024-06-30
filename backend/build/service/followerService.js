@@ -81,5 +81,22 @@ class FollowerService {
             });
         });
     }
+    getFollowersByUserIdAndFollowerId(userId, followerId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const followers = yield followersModel_1.default.findOne({
+                where: {
+                    userId,
+                    followerId
+                }
+            });
+            return followers;
+        });
+    }
+    getAllFollowers() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const followers = yield followersModel_1.default.findAll();
+            return followers;
+        });
+    }
 }
 exports.default = new FollowerService();

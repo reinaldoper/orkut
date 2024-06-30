@@ -62,6 +62,13 @@ class UserController implements IUserDto {
         if(user) return res.status(statusCodes.OK).json({ message: user });
         else return res.status(statusCodes.NOT_FOUND).json({ error: "User not found" });
     }
+
+    async getUserByEmail(req: Request, res: Response){
+        const { email } = req.params;
+        const user = await userService.getUserEmail(email);
+        if(user) return res.status(statusCodes.OK).json({ message: user });
+        else return res.status(statusCodes.NOT_FOUND).json({ error: "User not found" });
+    }
 }
 
 export default new UserController();

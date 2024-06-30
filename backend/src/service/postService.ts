@@ -1,6 +1,7 @@
 import PostsModel from "../database/models/postsModel";
 import TPost from "../types/TTypePost";
 import CategoriesModel from "../database/models/categoriesModel"
+import PhotosModel from "../database/models/photosModel";
 
 class PostService {
 
@@ -20,7 +21,12 @@ class PostService {
   }
 
   getAllPosts = async (): Promise<TPost[]> => {
-    const posts = await PostsModel.findAll();
+    const posts = await PostsModel.findAll({
+      include: [{
+        model: PhotosModel,
+        as: 'photos',
+      }]
+    });
     return posts as unknown as TPost[];
   }
 
@@ -36,7 +42,7 @@ class PostService {
 
   deletePostById = async (id: number): Promise<string> => {
     const resultPost = await this.getPostById(id);
-    
+
     if (resultPost.userId === id) {
       await PostsModel.destroy({
         where: { id }
@@ -49,7 +55,7 @@ class PostService {
 
   updatePostById = async (id: number, post: TPost): Promise<TPost | string> => {
     const { content, title, userId } = post;
-    
+
     const resultPost = await this.getPostById(id);
     if (resultPost.userId === userId) {
       const updatedPost = await PostsModel.update({

@@ -76,7 +76,9 @@ const CreateUser = () => {
       body: formData,
     };
     const { message, error } = await fetchUsers('', options);
-    if (message) navigate('/');
+    if (message) {
+      navigate('/')
+    }
     if (error) {
       setError(error);
       return;

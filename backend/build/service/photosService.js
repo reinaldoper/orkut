@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const photosModel_1 = __importDefault(require("../database/models/photosModel"));
 const postsModel_1 = __importDefault(require("../database/models/postsModel"));
+const fs_1 = __importDefault(require("fs"));
 class PhotosService {
     constructor() {
     }
@@ -41,9 +42,9 @@ class PhotosService {
             });
         });
     }
-    create(photo, userId) {
+    create(photo, userId, url) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { url, title = '', postId } = photo;
+            const { title = '', postId } = photo;
             const post = yield postsModel_1.default.findByPk(postId);
             if (!post) {
                 throw new Error('Post not found');
@@ -52,15 +53,15 @@ class PhotosService {
                 throw new Error('Unauthorized');
             }
             return yield photosModel_1.default.create({
-                url,
+                url: url ? url.path : '',
                 title,
                 postId
             });
         });
     }
-    update(id, updatedPhoto, userId) {
+    update(id, updatedPhoto, userId, url) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { url, title = '' } = updatedPhoto;
+            const { title = '' } = updatedPhoto;
             const photo = yield photosModel_1.default.findByPk(id, {
                 include: [
                     {
@@ -75,8 +76,9 @@ class PhotosService {
             if (photo.post.userId !== userId) {
                 throw new Error('Unauthorized');
             }
+            fs_1.default.unlinkSync(photo.url);
             return yield photo.update({
-                url,
+                url: url ? url.path : '',
                 title
             });
         });
@@ -97,6 +99,7 @@ class PhotosService {
             if (photo.post.userId !== userId) {
                 throw new Error('Unauthorized');
             }
+            fs_1.default.unlinkSync(photo.url);
             return yield photo.destroy();
         });
     }

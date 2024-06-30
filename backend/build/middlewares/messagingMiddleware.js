@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const rabbitmq_1 = __importDefault(require("../rabbitmq"));
+const statusCodes_1 = __importDefault(require("../statusCodes"));
 const messagingMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const channel = rabbitmq_1.default.getChannel();
@@ -29,7 +30,7 @@ const messagingMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0
         console.log(" [x] Sent %s", JSON.stringify(message));
     }
     catch (error) {
-        console.error('Failed to send message to RabbitMQ:', error);
+        res.status(statusCodes_1.default.ERROR).json({ error: 'Failed to send message to RabbitMQ' });
     }
     next();
 });

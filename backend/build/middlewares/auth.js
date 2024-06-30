@@ -19,18 +19,18 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const authHeader = req.header('Authorization');
         if (!authHeader) {
-            return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: "Authorization is required" });
+            return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: "Authorization is required" });
         }
         const decoded = jsonwebtoken_1.default.verify(authHeader, 'secretKey');
         const user = yield userService_1.default.getUserEmail(decoded.email);
         if (!user) {
-            return res.status(statusCodes_1.default.NOT_FOUND).json({ message: "User not found" });
+            return res.status(statusCodes_1.default.NOT_FOUND).json({ error: "User not found" });
         }
         req.body.id = decoded;
         next();
     }
     catch (error) {
-        return res.status(statusCodes_1.default.UNAUTHORIZED).json({ message: "Invalid token" });
+        return res.status(statusCodes_1.default.UNAUTHORIZED).json({ error: "Invalid token" });
     }
 });
 exports.default = auth;

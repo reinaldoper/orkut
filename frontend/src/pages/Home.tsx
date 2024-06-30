@@ -11,6 +11,28 @@ function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
+
+  const reqUserByEmail = async () => {
+    const token = localStorage.getItem('token') ?? ''
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(token)
+      }
+    }
+    const options = {
+      method: 'GET',
+      headers: header.headers,
+    };
+    const { message, error } = await fetchUsers(`${email}`, options)
+    if (error) {
+      setError(error)
+      return
+    }
+    
+    localStorage.setItem('user', JSON.stringify(message))
+  }
   
 
   const navigate = useNavigate();
@@ -30,6 +52,7 @@ function Home() {
     if (error) {
       setError(error);
     } else {
+      reqUserByEmail();
       localStorage.setItem('token', JSON.stringify(token));
       navigate('/content-page');
     }

@@ -25,10 +25,10 @@ class FollowingController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
+                    return res.status(statusCodes_1.default.NOT_FOUND).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
@@ -56,10 +56,10 @@ class FollowingController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    return res.status(statusCodes_1.default.NOT_FOUND).json({ message: error.message });
+                    return res.status(statusCodes_1.default.NOT_FOUND).json({ error: error.message });
                 }
                 else {
-                    return res.status(statusCodes_1.default.ERROR).json({ message: 'An unexpected error occurred' });
+                    return res.status(statusCodes_1.default.ERROR).json({ error: 'An unexpected error occurred' });
                 }
             }
         });
