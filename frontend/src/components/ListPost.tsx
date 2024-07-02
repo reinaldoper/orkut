@@ -8,6 +8,7 @@ import MessagePost from "../utils/MessagePost";
 import '../styles/ListPost.css'
 import { User } from "../types/TUser";
 import Modal from "../utils/Modal";
+import ReqUserById from "../utils/ReqUserById";
 
 
 const ListPost = () => {
@@ -67,6 +68,9 @@ const ListPost = () => {
     reqFollowers();
   }, [reqPosts, reqFollowers, open]);
 
+  console.log(posts);
+
+
   const handleLikes = useCallback(async (id: number) => {
     const token = getToken();
     const header = {
@@ -106,7 +110,10 @@ const ListPost = () => {
       <div className="max-h-96 overflow-y-scroll scrollbar-hide">
         {posts?.map((post) => (
           <div key={post.id} className="bg-white p-6 mt-4 rounded-lg shadow-md">
-            <h2 className="text-blue-600 mb-2">{post.title}</h2>
+            <div className="flex mb-5">
+              <ReqUserById id={post.userId} />
+              <h1 className="text-blue-600 mb-2 mt-5">{post.title}</h1>
+            </div>
             <p className="mb-4">{post.content}</p>
             <div className="flex flex-wrap">
               {post.photos.length > 0 && post.photos.map((photo) => (

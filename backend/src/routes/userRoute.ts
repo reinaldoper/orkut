@@ -17,6 +17,7 @@ routerUser.delete('/:id', auth, validateId, userController.delete);
 routerUser.get('/follow/:id', auth, validateId, userController.getUserFollowerById);
 routerUser.get('/following/:id', auth, validateId, userController.getUserFollowingById);
 routerUser.post('/login', validateLogin, userController.login);
-routerUser.get('/:email', auth, userController.getUserByEmail)
+routerUser.get('/:email', auth, userController.getUserByEmail);
+routerUser.get('/find/:id', auth, validateId, userController.getUserById);
 
 export default routerUser;

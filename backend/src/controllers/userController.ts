@@ -35,10 +35,16 @@ class UserController implements IUserDto {
     }
 
     async findById(req: Request, res: Response) {
-        /* const { id } = req.params; */
         const userId = req.body.id
         const user = await userService.getUserId(Number(userId.id));
         return res.status(statusCodes.OK).json({ message: user });
+    }
+
+    async getUserById(req: Request, res: Response) {
+        const { id } = req.params;
+        const user = await userService.getUserId(Number(id));
+        if(user) return res.status(statusCodes.OK).json({ message: user });
+        else return res.status(statusCodes.NOT_FOUND).json({ error: "User not found" });
     }
 
     async delete(req: Request, res: Response) {

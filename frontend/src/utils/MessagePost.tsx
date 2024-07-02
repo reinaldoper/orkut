@@ -7,7 +7,7 @@ const MessagePost = () => {
     navigate('/post-form');
   };
   return (
-    <div className="flex flex-col mx-auto bg-white rounded-lg p-4 shadow-md w-full mb-4">
+    <div className="flex flex-col bg-white rounded-lg p-4 shadow-md w-full mb-4">
       <button
         type="button"
         onClick={handleNavigate}
