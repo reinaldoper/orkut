@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavLink from "./NavLink";
 import educationList from "../utils/education";
 import Alert from "../utils/alert";
+import genre from "../utils/genre";
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -89,9 +90,9 @@ const CreateUser = () => {
     <>
       <NavLink />
       {error && <Alert errorAlert={{ error, setError }} />}
-      <form encType="multipart/form-data" onSubmit={onSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md space-y-4">
-        <h2 className="text-2xl font-bold mb-4 text-blue-600">Criar Novo Usuário</h2>
-        <div>
+      <form encType="multipart/form-data" onSubmit={onSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md space-y-4 orkut-form">
+        <h2 className="text-2xl font-bold mb-4 text-blue-600 orkut-title">Criar Novo Usuário</h2>
+        <div className="orkut-input">
           <label htmlFor="name" className="block text-gray-700 font-bold">Nome:</label>
           <input
             type="text"
@@ -103,7 +104,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="email" className="block text-gray-700 font-bold">E-mail:</label>
           <input
             type="email"
@@ -115,7 +116,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="password" className="block text-gray-700 font-bold">Senha:</label>
           <input
             type="password"
@@ -126,7 +127,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="age" className="block text-gray-700 font-bold">Idade:</label>
           <input
             type="text"
@@ -137,7 +138,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="image" className="block text-gray-700 font-bold">Foto de Perfil:</label>
           <input
             type="file"
@@ -147,7 +148,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="phone_number" className="block text-gray-700 font-bold">Número de Telefone:</label>
           <input
             type="text"
@@ -159,7 +160,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="birthdate" className="block text-gray-700 font-bold">Data de Nascimento:</label>
           <input
             type="date"
@@ -170,7 +171,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="bio" className="block text-gray-700 font-bold">Biografia:</label>
           <textarea
             value={bio}
@@ -181,7 +182,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="hobbies" className="block text-gray-700 font-bold">Hobbies:</label>
           <input
             type="text"
@@ -193,7 +194,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="favorite_movies" className="block text-gray-700 font-bold">Filmes Favoritos:</label>
           <input
             type="text"
@@ -205,7 +206,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="favorite_books" className="block text-gray-700 font-bold">Livros Favoritos:</label>
           <input
             type="text"
@@ -217,7 +218,7 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="favorite_music" className="block text-gray-700 font-bold">Músicas Favoritas:</label>
           <input
             type="text"
@@ -229,19 +230,19 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
-          <label htmlFor="language" className="block text-gray-700 font-bold">Idioma:</label>
+        <div className="orkut-input">
+          <label htmlFor="language" className="block text-gray-700 font-bold">Idiomas:</label>
           <input
             type="text"
             value={language}
             id="language"
             required
             onChange={(e) => setLanguage(e.target.value)}
-            placeholder="Digite seu idioma"
+            placeholder="Digite os idiomas que você fala"
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="favorite_food" className="block text-gray-700 font-bold">Comida Favorita:</label>
           <input
             type="text"
@@ -253,46 +254,31 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <fieldset className="border rounded p-2">
-          <legend className="text-gray-700 font-bold">Estado Civil:</legend>
-          <div className="flex items-center gap-4">
-            <label htmlFor="single" className="flex items-center gap-2">
-              <input
-                type="radio"
-                value="single"
-                id="single"
-                name="relationship"
-                required
-                onChange={(e) => setRelationship(e.target.value)}
-              />
-              Solteiro(a)
-            </label>
-            <label htmlFor="married" className="flex items-center gap-2">
-              <input
-                type="radio"
-                value="married"
-                id="married"
-                name="relationship"
-                required
-                onChange={(e) => setRelationship(e.target.value)}
-              />
-              Casado(a)
-            </label>
-          </div>
-        </fieldset>
-        <div>
+        <div className="orkut-input">
+          <label htmlFor="relationship" className="block text-gray-700 font-bold">Status de Relacionamento:</label>
+          <input
+            type="text"
+            value={relationship}
+            id="relationship"
+            required
+            onChange={(e) => setRelationship(e.target.value)}
+            placeholder="Digite seu status de relacionamento"
+            className="border rounded p-2 w-full"
+          />
+        </div>
+        <div className="orkut-input">
           <label htmlFor="country" className="block text-gray-700 font-bold">País:</label>
           <input
             type="text"
             value={country}
-            required
             id="country"
+            required
             onChange={(e) => setCountry(e.target.value)}
             placeholder="Digite seu país"
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="interesting" className="block text-gray-700 font-bold">Interesses:</label>
           <input
             type="text"
@@ -304,19 +290,19 @@ const CreateUser = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="city" className="block text-gray-700 font-bold">Cidade:</label>
           <input
             type="text"
             value={city}
-            required
             id="city"
+            required
             onChange={(e) => setCity(e.target.value)}
             placeholder="Digite sua cidade"
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="work" className="block text-gray-700 font-bold">Trabalho:</label>
           <input
             type="text"
@@ -324,50 +310,46 @@ const CreateUser = () => {
             id="work"
             required
             onChange={(e) => setWork(e.target.value)}
-            placeholder="Digite sua ocupação"
+            placeholder="Digite seu trabalho"
             className="border rounded p-2 w-full"
           />
         </div>
-        <div>
+        <div className="orkut-input">
           <label htmlFor="education" className="block text-gray-700 font-bold">Educação:</label>
-          <select required onChange={(e) => setEducation(e.target.value)} className="border rounded p-2 w-full">
-            <option value="default">Escolha seu nível:</option>
-            {educationList.map((e, index) => (
-              <option key={index} value={e.school}>{e.school}</option>
+          <select
+            value={education}
+            id="education"
+            required
+            onChange={(e) => setEducation(e.target.value)}
+            className="border rounded p-2 w-full"
+          >
+            <option>Selecione a educação...</option>
+            {educationList.map((edu, idx) => (
+              <option key={idx} value={edu}>{edu}</option>
             ))}
           </select>
         </div>
-        <fieldset className="border rounded p-2">
-          <legend className="text-gray-700 font-bold">Gênero:</legend>
-          <div className="flex items-center gap-4">
-            <label htmlFor="male" className="flex items-center gap-2">
-              <input
-                type="radio"
-                value="male"
-                id="male"
-                name="gender"
-                required
-                onChange={(e) => setGender(e.target.value)}
-              />
-              Masculino
-            </label>
-            <label htmlFor="female" className="flex items-center gap-2">
-              <input
-                type="radio"
-                value="female"
-                id="female"
-                name="gender"
-                required
-                onChange={(e) => setGender(e.target.value)}
-              />
-              Feminino
-            </label>
-          </div>
-        </fieldset>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700">Cadastrar</button>
+        <div className="orkut-input">
+          <label htmlFor="gender" className="block text-gray-700 font-bold">Gênero:</label>
+          <select
+            value={gender}
+            id="gender"
+            required
+            onChange={(e) => setGender(e.target.value)}
+            className="border rounded p-2 w-full"
+          >
+            <option>Selecione o Gênero...</option>
+            {genre.map((genre, index) => (
+              <option value={genre} key={index}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded orkut-button">Criar Usuário</button>
       </form>
     </>
   );
-}
+};
 
 export default CreateUser;

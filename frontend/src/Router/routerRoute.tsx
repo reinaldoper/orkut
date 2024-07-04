@@ -18,7 +18,7 @@ const routerRoute = () => {
           <Route path="/content-page" element={<ContentPage />}></Route>
           <Route path="*" element={<NotFoundPage  />}></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/post-user" element={<PostUser />}></Route>
+          <Route path="/post-user/:id" element={<PostUser />}></Route>
           <Route path="/post-form" element={<PostFormUser />}></Route>
           <Route path="/post-list" element={<PostList />}></Route>
         </Routes>

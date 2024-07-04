@@ -1,25 +1,10 @@
 const education = [
-  {
-    "school": "Ensino médio",
-  },
-  {
-    "school": "Ensino técnico",
-  },
-  {
-    "school": "Superior completo",
-  },
-  {
-    "school": "Superior imcompleto",
-  },
-  {
-    "school": "Pós graduado",
-  },
-  {
-    "school": "Mestrado",
-  },
-  {
-    "school": "Doutorado",
-  }
-]
+  "Ensino Fundamental",
+  "Ensino Médio",
+  "Graduação",
+  "Pós-Graduação",
+  "Mestrado",
+  "Doutorado",
+];
 
 export default education;
