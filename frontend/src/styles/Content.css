@@ -1,3 +1,94 @@
 :root{
   background-color: #CBD5E1;
 }
+
+.profile-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 800px;
+}
+
+.profile-card {
+  background-color: #e9f1fb;
+  border: 1px solid #c0c0c0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.profile-pic {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  padding: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-pic:hover {
+  transform: scale(1.2);
+}
+
+.profile-name {
+  font-size: 1.25rem;
+  color: #0073e6;
+  margin-top: 8px;
+}
+
+.profile-detail {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.profile-info {
+  flex-grow: 1;
+  margin-left: 24px;
+}
+
+.profile-bio {
+  background-color: #f2f2f2;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bio-name {
+  font-size: 1.5rem;
+  color: #0073e6;
+}
+
+.bio-text {
+  color: #d32f2f;
+  margin-top: 8px;
+}
+
+.profile-details {
+  background-color: #f2f2f2;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-detail-item {
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #0073e6;
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  color: #333;
+}

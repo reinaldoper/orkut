@@ -8,6 +8,7 @@ import Alert from "../utils/alert";
 import genre from "../utils/genre";
 import linguas_nativas from "../utils/linguasNativas";
 import principais_paises from "../utils/paisesList";
+import relacition_ship from "../utils/relacionamento";
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -261,15 +262,18 @@ const CreateUser = () => {
         </div>
         <div className="orkut-input">
           <label htmlFor="relationship" className="block text-gray-700 font-bold">Status de Relacionamento:</label>
-          <input
-            type="text"
+          <select
             value={relationship}
             id="relationship"
             required
             onChange={(e) => setRelationship(e.target.value)}
-            placeholder="Digite seu status de relacionamento"
             className="border rounded p-2 w-full"
-          />
+          >
+            <option>Selecione seu status de relacionamento</option>
+            {relacition_ship.map((relation, index) => (
+              <option key={index} value={relation}>{relation}</option>
+            ))}
+          </select>
         </div>
         <div className="orkut-input">
           <label htmlFor="country" className="block text-gray-700 font-bold">País:</label>

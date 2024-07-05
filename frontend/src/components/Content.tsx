@@ -1,88 +1,91 @@
 import fetchUsers from "../services/fetchUsers";
 import { useEffect, useState } from "react";
-import { User } from "../types/TUser"
+import { User } from "../types/TUser";
 import Alert from "../utils/alert";
 import Icons from "../utils/Icons";
 import LoadingPage from "../pages/LoadingPage";
+import '../styles/Content.css';
 
 const Content = () => {
-  const [users, setUsers] = useState<User>()
-  const [error, setError] = useState('')
-  const [loadings, setLoading] = useState(false)
-  
+  const [users, setUsers] = useState<User>();
+  const [error, setError] = useState('');
+  const [loadings, setLoading] = useState(false);
+
   useEffect(() => {
     const reqUser = async () => {
-      const token = localStorage.getItem('token') ?? ''
+      const token = localStorage.getItem('token') ?? '';
       const header = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': JSON.parse(token)
         }
-      }
+      };
       const options = {
         method: 'GET',
         headers: header.headers,
       };
-      const { message, error } = await fetchUsers('find', options)
+      const { message, error } = await fetchUsers('find', options);
       if (error) {
-        setError(error)
-        return
+        setError(error);
+        return;
       }
-      setLoading(true)
-      setUsers(message)
-    }
-    reqUser()
-  }, [])
+      setLoading(true);
+      setUsers(message);
+    };
+    reqUser();
+  }, []);
 
-
-  const URL = users?.image ? `http://172.16.238.10:3000${users.image}` : ''
-
+  const URL = users?.image ? `http://172.16.238.10:3000${users.image}` : '';
 
   return (
     <>
-      {!loadings ? <div>
-        <Alert errorAlert={{ error, setError }} />
-        <LoadingPage />
-      </div> : <div className="flex flex-wrap m-6">
-        <div className="bg-slate-300">
-          {error && <Alert errorAlert={{
-            error,
-            setError
-          }} />}
+      {!loadings ? (
+        <div>
+          <Alert errorAlert={{ error, setError }} />
+          <LoadingPage />
+        </div>
+      ) : (
+        <div className="profile-container">
+          {error && <Alert errorAlert={{ error, setError }} />}
           {users && (
-            <div className="bg-blue-300 flex flex-col p-8 w-52 h-auto m-12 rounded-r-xl shadow-md">
-              <img className="w-32 h-32 rounded-full p-2 hover:scale-150" src={URL} alt="This is me" title="This is me" />
-              <p className="p-2 text-blue-800">{users.name}</p>
-              <p className="p-2 text-gray-500">{users.country}</p>
-              <p className="p-2 text-gray-500">{users.city}</p>
-              <p className="p-2 text-gray-500">{users.interesting}</p>
-              <p className="p-2 text-gray-500">{users.education}</p>
+            <div className="profile-card">
+              <img className="profile-pic" src={URL} alt="This is me" title="This is me" />
+              <p className="profile-name">{users.name}</p>
+              <p className="profile-detail">{users.country}</p>
+              <p className="profile-detail">{users.city}</p>
+              <p className="profile-detail">{users.interesting}</p>
+              <p className="profile-detail">{users.education}</p>
             </div>
           )}
-        </div>
-
-        <div className="flex mx-8 my-4 flex-col w-7/12">
-          <div className="bg-gray-200 p-9 mt-8 rounded-tr-3xl shadow-md">
-            <h2 className="text-blue-600 m-4">{users?.name}</h2>
-            <p className="text-red-600 m-4">{users?.bio}</p>
-            <Icons />
+          <div className="profile-info">
+            <div className="profile-bio">
+              <h2 className="bio-name">{users?.name}</h2>
+              <p className="bio-text">{users?.bio}</p>
+              <Icons />
+            </div>
+            <div className="profile-details">
+              {[
+                { label: 'Education', value: users?.education },
+                { label: 'Country', value: users?.country },
+                { label: 'Interest', value: users?.interesting },
+                { label: 'Genre', value: users?.genro },
+                { label: 'Relationship', value: users?.relationship },
+                { label: 'Birthdate', value: users?.birthdate },
+                { label: 'Favorite Books', value: users?.favorite_books },
+                { label: 'Favorite Food', value: users?.favorite_food },
+                { label: 'Favorite Music', value: users?.favorite_music }
+              ].map((detail, index) => (
+                <div key={index} className="profile-detail-item">
+                  <h3 className="detail-label">{detail.label}:</h3>
+                  <span className="detail-value">{detail.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="bg-gray-200 hover:ps-10 hover:pe-10 p-5 mt-6 h-auto shadow-md">
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">education: <span className="text-black">{users?.education}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">country: <span className="text-black">{users?.country}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">interest: <span className="text-black">{users?.interesting}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">genre: <span className="text-black">{users?.genro}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">relationship: <span className="text-black">{users?.relationship}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">birthdate: <span className="text-black">{users?.birthdate}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_books: <span className="text-black">{users?.favorite_books}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_food: <span className="text-black">{users?.favorite_food}</span></h3>
-            <h3 className="text-gray-500 hover:ps-52 hover:pe-10 p-2 m-4 bg-blue-400 rounded">favorite_music: <span className="text-black">{users?.favorite_music}</span></h3>
-          </div>
         </div>
-      </div>}
-
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Content;
