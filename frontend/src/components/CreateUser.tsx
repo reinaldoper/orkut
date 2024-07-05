@@ -6,6 +6,8 @@ import NavLink from "./NavLink";
 import educationList from "../utils/education";
 import Alert from "../utils/alert";
 import genre from "../utils/genre";
+import linguas_nativas from "../utils/linguasNativas";
+import principais_paises from "../utils/paisesList";
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -232,15 +234,18 @@ const CreateUser = () => {
         </div>
         <div className="orkut-input">
           <label htmlFor="language" className="block text-gray-700 font-bold">Idiomas:</label>
-          <input
-            type="text"
+          <select
             value={language}
             id="language"
             required
             onChange={(e) => setLanguage(e.target.value)}
-            placeholder="Digite os idiomas que você fala"
             className="border rounded p-2 w-full"
-          />
+          >
+            <option>Selecione sua lingua nativa</option>
+            {linguas_nativas.map((lingua, index) => (
+              <option key={index} value={lingua}>{lingua}</option>
+            ))}
+          </select>
         </div>
         <div className="orkut-input">
           <label htmlFor="favorite_food" className="block text-gray-700 font-bold">Comida Favorita:</label>
@@ -268,15 +273,18 @@ const CreateUser = () => {
         </div>
         <div className="orkut-input">
           <label htmlFor="country" className="block text-gray-700 font-bold">País:</label>
-          <input
-            type="text"
+          <select
             value={country}
             id="country"
             required
             onChange={(e) => setCountry(e.target.value)}
-            placeholder="Digite seu país"
             className="border rounded p-2 w-full"
-          />
+          >
+            <option>Selecione seu país</option>
+            {principais_paises.map((pais, index) => (
+              <option key={index} value={pais}>{pais}</option>
+            ))}
+          </select>
         </div>
         <div className="orkut-input">
           <label htmlFor="interesting" className="block text-gray-700 font-bold">Interesses:</label>

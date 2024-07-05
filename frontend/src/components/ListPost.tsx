@@ -109,8 +109,8 @@ const ListPost = () => {
       </div>
       <div className="max-h-screen overflow-y-scroll scrollbar-hide">
         {posts?.map((post) => (
-          <div key={post.id} className="bg-slate-400 p-6 mt-4 rounded-lg shadow-md">
-            <div className="flex mb-5 bg-sky-300 rounded-2xl">
+          <div key={post.id} className="bg-sky-200 p-6 mt-4 rounded-lg shadow-md">
+            <div className="flex mb-5 bg-slate-400 rounded-2xl">
               <ReqUserById id={post.userId} />
               <h1 className="text-blue-600 mb-2 mt-5">{post.title}</h1>
             </div>
