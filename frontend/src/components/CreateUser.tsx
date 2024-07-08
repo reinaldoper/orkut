@@ -1,5 +1,5 @@
 import { ISubmit } from "../types/TUser";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect, useCallback } from "react";
 import fetchUsers from '../services/fetchUsers';
 import { useNavigate } from "react-router-dom";
 import NavLink from "./NavLink";
@@ -9,6 +9,8 @@ import genre from "../utils/genre";
 import linguas_nativas from "../utils/linguasNativas";
 import principais_paises from "../utils/paisesList";
 import relacition_ship from "../utils/relacionamento";
+import fetchBrasil from "../services/fetchBrasil";
+import { IDistricts } from "../types/IDistricts";
 
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -33,8 +35,31 @@ const CreateUser = () => {
   const [language, setLanguage] = useState('');
   const [favoriteFood, setFavoriteFood] = useState('');
   const [error, setError] = useState('');
+  const [districts, setDistricts] = useState<IDistricts[]>();
+  const [district, setDistrict] = useState('');
 
   const navigate = useNavigate();
+
+  const handleCountryBrasil = useCallback(async () => {
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    };
+    const options = {
+      method: 'GET',
+      headers: header.headers,
+    };
+    const data = await fetchBrasil(options);
+    setDistricts(data);
+
+  }, []);
+
+  useEffect(() => {
+    handleCountryBrasil();
+  }, [handleCountryBrasil]);
+
+
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -50,6 +75,9 @@ const CreateUser = () => {
     }
   };
 
+  const compareCity = districts?.some((d) => d["UF-nome"] === city)
+  
+
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
     const formData = new FormData();
@@ -61,7 +89,7 @@ const CreateUser = () => {
     formData.append('relationship', relationship ? relationship : '');
     formData.append('country', country ? country : '');
     formData.append('interesting', interesting ? interesting : '');
-    formData.append('city', city ? city : '');
+    formData.append('city', city ? `${city}, ${district}` : '');
     formData.append('work', work ? work : '');
     formData.append('education', education ? education : '');
     formData.append('genro', gender ? gender : '');
@@ -303,16 +331,53 @@ const CreateUser = () => {
           />
         </div>
         <div className="orkut-input">
-          <label htmlFor="city" className="block text-gray-700 font-bold">Cidade:</label>
-          <input
+          <label htmlFor="city" className="block text-gray-700 font-bold">Estado:</label>
+          {country === 'Brasil' ? <select
+            value={city}
+            id="city"
+            required
+            onChange={(e) => setCity(e.target.value)}
+            className="border rounded p-2 w-full"
+          >
+            <option>Selecione seu estado</option>
+            {districts?.map((cit, index) => (
+              <option key={index}>{cit["UF-nome"]}</option>
+            ))}
+          </select> : <input
             type="text"
             value={city}
             id="city"
             required
             onChange={(e) => setCity(e.target.value)}
+            placeholder="Digite seu estado"
+            className="border rounded p-2 w-full"
+          />}
+        </div>
+        <div className="orkut-input">
+          <label htmlFor="city" className="block text-gray-700 font-bold">Cidade:</label>
+          {compareCity ? <select
+            value={district}
+            id="city"
+            required
+            onChange={(e) => setDistrict(e.target.value)}
+            className="border rounded p-2 w-full"
+          >
+            <option>Selecione sua cidade</option>
+            {districts?.map((cit, index) => (
+                city === cit["UF-nome"] &&
+                  <option key={index}>
+                    {cit["distrito-nome"]}
+                  </option>
+            ))}
+          </select> : <input
+            type="text"
+            value={district}
+            id="city"
+            required
+            onChange={(e) => setDistrict(e.target.value)}
             placeholder="Digite sua cidade"
             className="border rounded p-2 w-full"
-          />
+          />}
         </div>
         <div className="orkut-input">
           <label htmlFor="work" className="block text-gray-700 font-bold">Trabalho:</label>
