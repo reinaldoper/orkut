@@ -4,10 +4,12 @@ import { User } from "../types/TUser";
 import fetchUsers from "../services/fetchUsers";
 import LoadingPage from "../pages/LoadingPage";
 import '../styles/ProfilePost.css'
+import fetchFollowing from "../services/fetchFollowing";
 
 const Posts = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [following, setFollowing] = useState([]);
 
   const { id } = useParams();
 
@@ -30,9 +32,30 @@ const Posts = () => {
     setLoading(false);
   }, [id]);
 
+
+  const reqFollowing = useCallback(async () => {
+    const token = getToken();
+    const header = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: JSON.parse(token),
+      },
+    };
+    const options = {
+      method: "GET",
+      headers: header.headers,
+    };
+    const { message } = await fetchFollowing(`${Number(id)}`, options);
+    setFollowing(message);
+  }, [id]);
+
   useEffect(() => {
     reqUser();
-  }, [reqUser]);
+    reqFollowing();
+  }, [reqUser, reqFollowing]);
+
+  console.log(following, id);
+  
 
   const URL = user?.image ? `http://172.16.238.10:3000${user.image}` : "";
 

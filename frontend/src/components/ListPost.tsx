@@ -9,6 +9,7 @@ import '../styles/ListPost.css'
 import { User } from "../types/TUser";
 import Modal from "../utils/Modal";
 import ReqUserById from "../utils/ReqUserById";
+import fetchFollowing from "../services/fetchFollowing";
 
 const ListPost = () => {
   const [posts, setPosts] = useState<IPost[]>();
@@ -18,6 +19,26 @@ const ListPost = () => {
 
   const getToken = () => localStorage.getItem('token') ?? '';
   const getUser = () => localStorage.getItem('user') ?? '';
+
+  const reqFollowing = useCallback(async (id: number) => {
+    const token = getToken();
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(token)
+      }
+    };
+    const options = {
+      method: 'POST',
+      headers: header.headers,
+      body: JSON.stringify({ userToFollowId: id })
+    };
+    const { error } = await fetchFollowing('', options);
+    if (error) {
+      setError(error);
+      return;
+    }
+  }, []);
 
   const reqFollowers = useCallback(async () => {
     const token = getToken();
@@ -124,6 +145,12 @@ const ListPost = () => {
                   <path fillRule="evenodd" d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" clipRule="evenodd" />
                 </svg>
                 <span>({post.likes})</span>
+              </button>
+              <button onClick={() => reqFollowing(post.id)} className="flex items-center gap-2 text-gray-700 hover:text-red-700 transition-colors duration-200" type="button">
+                <svg className="w-6 h-6 text-gray-800 hover:text-red-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.133 12.632v-1.8a5.407 5.407 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V3.1a1 1 0 0 0-2 0v2.364a.933.933 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C6.867 15.018 5 15.614 5 16.807 5 17.4 5 18 5.538 18h12.924C19 18 19 17.4 19 16.807c0-1.193-1.867-1.789-1.867-4.175Zm-13.267-.8a1 1 0 0 1-1-1 9.424 9.424 0 0 1 2.517-6.391A1.001 1.001 0 1 1 6.854 5.8a7.43 7.43 0 0 0-1.988 5.037 1 1 0 0 1-1 .995Zm16.268 0a1 1 0 0 1-1-1A7.431 7.431 0 0 0 17.146 5.8a1 1 0 0 1 1.471-1.354 9.424 9.424 0 0 1 2.517 6.391 1 1 0 0 1-1 .995ZM8.823 19a3.453 3.453 0 0 0 6.354 0H8.823Z" />
+                </svg>
+                <span>Follow</span>
               </button>
               <span className="flex items-center gap-2 text-sm text-gray-500">
                 <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
