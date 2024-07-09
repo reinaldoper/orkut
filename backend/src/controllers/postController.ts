@@ -2,12 +2,14 @@ import postService from "../service/postService";
 import { Request, Response } from "express";
 import statusCodes from "../statusCodes"
 import PostDto from "../Dtos/postDTO";
+import { io } from '../server';
 
 class PostController implements PostDto {
     async create(req: Request, res: Response) {
         const { id: userId } = req.body.id;
         req.body.userId = userId;
         const post = await postService.createPost(req.body);
+        io.emit('message', post);
         return res.status(statusCodes.CREATED).json({ message: post });
     }
 

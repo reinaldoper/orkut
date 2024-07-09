@@ -12,8 +12,9 @@ const validatePhoto = (req, res, next) => {
     });
     try {
         userSchema.parse(req.body);
-        if (!req.file) {
-            return res.status(statusCodes_1.default.BAD_REQUEST).json({ error: "Image is required" });
+        const file = req.file;
+        if (!file) {
+            return res.status(statusCodes_1.default.BAD_REQUEST).json({ error: "Url of the image is required" });
         }
         next();
     }

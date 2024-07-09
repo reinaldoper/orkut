@@ -17,7 +17,7 @@ class RabbitMQ {
     static init() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.connection = yield amqplib_1.default.connect('amqp://rabbitmq:5672');
+                this.connection = yield amqplib_1.default.connect('amqp://localhost:5672');
                 this.channel = yield this.connection.createChannel();
                 console.log('Connected to RabbitMQ and channel created');
             }

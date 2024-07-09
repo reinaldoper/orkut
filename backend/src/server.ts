@@ -1,6 +1,9 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import RabbitMQ from './rabbitmq';
 import path from 'path';
+import http from 'http';
+import { Server as SocketIOServer, Socket } from 'socket.io'; 
+
 import messagingMiddleware from './middlewares/messagingMiddleware';
 
 import routerUser from './routes/userRoute';
@@ -16,10 +19,18 @@ dotenv.config();
 
 const app = express();
 
+const server = http.createServer(app);
+const io = new SocketIOServer(server);
+
 app.use(cors());
 app.use(express.json());
-const uploadDir = path.join(__dirname, '../uploads'); 
-app.use('/uploads', express.static(uploadDir)); 
+const uploadDir = path.join(__dirname, '../uploads');
+app.use('/uploads', express.static(uploadDir));
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  (req as any).io = io; 
+  next();
+});
 
 
 async function startServer() {
@@ -37,8 +48,17 @@ async function startServer() {
     app.use('/followers', followersRouter);
     app.use('/following', followingRouter);
 
+    io.on('connection', (socket: Socket) => {
+      console.log('a user connected');
+
+      socket.on('disconnect', () => {
+        console.log('user disconnected');
+      });
+    });
+
+
     const port = process.env.PORT || 3000;
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
 
@@ -51,3 +71,4 @@ async function startServer() {
 startServer();
 
 export default app;
+export { io };

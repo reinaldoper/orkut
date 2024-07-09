@@ -42,18 +42,15 @@ class PhotosService {
             });
         });
     }
-    create(photo, userId, url) {
+    create(photo, url) {
         return __awaiter(this, void 0, void 0, function* () {
             const { title = '', postId } = photo;
             const post = yield postsModel_1.default.findByPk(postId);
             if (!post) {
                 throw new Error('Post not found');
             }
-            if (post.userId !== userId) {
-                throw new Error('Unauthorized');
-            }
             return yield photosModel_1.default.create({
-                url: url ? url.path : '',
+                url: `/uploads/${url === null || url === void 0 ? void 0 : url.filename}`,
                 title,
                 postId
             });

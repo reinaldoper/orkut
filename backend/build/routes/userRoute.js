@@ -21,4 +21,5 @@ routerUser.get('/follow/:id', auth_1.default, validateId_1.default, userControll
 routerUser.get('/following/:id', auth_1.default, validateId_1.default, userController_1.default.getUserFollowingById);
 routerUser.post('/login', validateLogin_1.default, userController_1.default.login);
 routerUser.get('/:email', auth_1.default, userController_1.default.getUserByEmail);
+routerUser.get('/find/:id', auth_1.default, validateId_1.default, userController_1.default.getUserById);
 exports.default = routerUser;

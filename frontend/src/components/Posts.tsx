@@ -78,21 +78,21 @@ const Posts = () => {
 
           <div className="mt-6 w-full">
             <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-4">Sobre mim</h2>
-            <p className="text-lg"><strong>Bio:</strong> {user?.bio}</p>
-            <p className="text-lg mt-2"><strong>Email:</strong> {user?.email}</p>
-            <p className="text-lg mt-2"><strong>Idade:</strong> {user?.age}</p>
-            <p className="text-lg mt-2"><strong>Trabalho:</strong> {user?.work}</p>
-            <p className="text-lg mt-2"><strong>Educação:</strong> {user?.education}</p>
-            <p className="text-lg mt-2"><strong>Relacionamento:</strong> {user?.relationship}</p>
+            <p className="text-lg"><strong className="text-blue-500">Bio:</strong> {user?.bio}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Email:</strong> {user?.email}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Idade:</strong> {user?.age}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Trabalho:</strong> {user?.work}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Educação:</strong> {user?.education}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Relacionamento:</strong> {user?.relationship}</p>
           </div>
 
           <div className="mt-6 w-full">
             <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-4">Favoritos</h2>
-            <p className="text-lg"><strong>Livros:</strong> {user?.favorite_books}</p>
-            <p className="text-lg mt-2"><strong>Filmes:</strong> {user?.favorite_movies}</p>
-            <p className="text-lg mt-2"><strong>Músicas:</strong> {user?.favorite_music}</p>
-            <p className="text-lg mt-2"><strong>Comidas:</strong> {user?.favorite_food}</p>
-            <p className="text-lg mt-2"><strong>Hobbies:</strong> {user?.hobbies}</p>
+            <p className="text-lg"><strong className="text-blue-500">Livros:</strong> {user?.favorite_books}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Filmes:</strong> {user?.favorite_movies}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Músicas:</strong> {user?.favorite_music}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Comidas:</strong> {user?.favorite_food}</p>
+            <p className="text-lg mt-2"><strong className="text-blue-500">Hobbies:</strong> {user?.hobbies}</p>
           </div>
         </div>
       )}

@@ -14,12 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const postService_1 = __importDefault(require("../service/postService"));
 const statusCodes_1 = __importDefault(require("../statusCodes"));
+const server_1 = require("../server");
 class PostController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id: userId } = req.body.id;
             req.body.userId = userId;
             const post = yield postService_1.default.createPost(req.body);
+            server_1.io.emit('message', post);
             return res.status(statusCodes_1.default.CREATED).json({ message: post });
         });
     }

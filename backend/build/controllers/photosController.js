@@ -18,9 +18,8 @@ class PhotosController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id: userId } = req.body.id;
                 const url = req.file;
-                const photo = yield photosService_1.default.create(req.body, userId, url);
+                const photo = yield photosService_1.default.create(req.body, url);
                 return res.status(statusCodes_1.default.CREATED).json({ message: photo });
             }
             catch (error) {

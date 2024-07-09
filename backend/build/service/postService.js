@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const postsModel_1 = __importDefault(require("../database/models/postsModel"));
 const categoriesModel_1 = __importDefault(require("../database/models/categoriesModel"));
+const photosModel_1 = __importDefault(require("../database/models/photosModel"));
 class PostService {
     constructor() {
         this.createPost = (post) => __awaiter(this, void 0, void 0, function* () {
@@ -28,7 +29,12 @@ class PostService {
             return newPost;
         });
         this.getAllPosts = () => __awaiter(this, void 0, void 0, function* () {
-            const posts = yield postsModel_1.default.findAll();
+            const posts = yield postsModel_1.default.findAll({
+                include: [{
+                        model: photosModel_1.default,
+                        as: 'photos',
+                    }]
+            });
             return posts;
         });
         this.getPostById = (id) => __awaiter(this, void 0, void 0, function* () {

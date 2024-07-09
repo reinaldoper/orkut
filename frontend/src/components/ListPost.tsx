@@ -10,6 +10,7 @@ import { User } from "../types/TUser";
 import Modal from "../utils/Modal";
 import ReqUserById from "../utils/ReqUserById";
 import fetchFollowing from "../services/fetchFollowing";
+import io from "socket.io-client"; 
 
 const ListPost = () => {
   const [posts, setPosts] = useState<IPost[]>();
@@ -85,9 +86,23 @@ const ListPost = () => {
   useEffect(() => {
     reqPosts();
     reqFollowers();
+    const socket = io('http://localhost:3000'); 
+
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor Socket.IO');
+    });
+
+    socket.on('message', (post) => {
+      console.log('Novo post:', post);
+      alert(`Novo post: ${post}`);
+      reqPosts();
+    });
+
+    return () => {
+      socket.disconnect(); 
+    };
   }, [reqPosts, reqFollowers, open]);
 
-  console.log(posts);
 
   const handleLikes = useCallback(async (id: number) => {
     const token = getToken();

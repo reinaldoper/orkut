@@ -12,9 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.io = void 0;
 const express_1 = __importDefault(require("express"));
 const rabbitmq_1 = __importDefault(require("./rabbitmq"));
 const path_1 = __importDefault(require("path"));
+const http_1 = __importDefault(require("http"));
+const socket_io_1 = require("socket.io");
 const messagingMiddleware_1 = __importDefault(require("./middlewares/messagingMiddleware"));
 const userRoute_1 = __importDefault(require("./routes/userRoute"));
 const postRoute_1 = __importDefault(require("./routes/postRoute"));
@@ -26,10 +29,17 @@ const cors = require("cors");
 const dotenv = require('dotenv');
 dotenv.config();
 const app = (0, express_1.default)();
+const server = http_1.default.createServer(app);
+const io = new socket_io_1.Server(server);
+exports.io = io;
 app.use(cors());
 app.use(express_1.default.json());
 const uploadDir = path_1.default.join(__dirname, '../uploads');
 app.use('/uploads', express_1.default.static(uploadDir));
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -42,8 +52,18 @@ function startServer() {
             app.use('/photos', photosRoute_1.default);
             app.use('/followers', followerRoute_1.default);
             app.use('/following', followingRoute_1.default);
+            io.on('connection', (socket) => {
+                console.log('a user connected');
+                socket.on('disconnect', () => {
+                    console.log('user disconnected');
+                });
+                socket.on('message', (msg) => {
+                    console.log('message: ' + msg);
+                    io.emit('message', msg);
+                });
+            });
             const port = process.env.PORT || 3000;
-            app.listen(port, () => {
+            server.listen(port, () => {
                 console.log(`Server is running on port ${port}`);
             });
         }

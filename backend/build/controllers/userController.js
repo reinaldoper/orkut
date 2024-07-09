@@ -50,10 +50,19 @@ class UserController {
     }
     findById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            /* const { id } = req.params; */
             const userId = req.body.id;
             const user = yield userService_1.default.getUserId(Number(userId.id));
             return res.status(statusCodes_1.default.OK).json({ message: user });
+        });
+    }
+    getUserById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const user = yield userService_1.default.getUserId(Number(id));
+            if (user)
+                return res.status(statusCodes_1.default.OK).json({ message: user });
+            else
+                return res.status(statusCodes_1.default.NOT_FOUND).json({ error: "User not found" });
         });
     }
     delete(req, res) {
