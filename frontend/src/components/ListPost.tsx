@@ -10,7 +10,7 @@ import { User } from "../types/TUser";
 import Modal from "../utils/Modal";
 import ReqUserById from "../utils/ReqUserById";
 import fetchFollowing from "../services/fetchFollowing";
-import io from "socket.io-client"; 
+import io from "socket.io-client";
 
 const ListPost = () => {
   const [posts, setPosts] = useState<IPost[]>();
@@ -18,28 +18,10 @@ const ListPost = () => {
   const [followers, setFollowers] = useState<TFollowers[]>();
   const [open, setOpen] = useState(false);
 
+
   const getToken = () => localStorage.getItem('token') ?? '';
   const getUser = () => localStorage.getItem('user') ?? '';
 
-  const reqFollowing = useCallback(async (id: number) => {
-    const token = getToken();
-    const header = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': JSON.parse(token)
-      }
-    };
-    const options = {
-      method: 'POST',
-      headers: header.headers,
-      body: JSON.stringify({ userToFollowId: id })
-    };
-    const { error } = await fetchFollowing('', options);
-    if (error) {
-      setError(error);
-      return;
-    }
-  }, []);
 
   const reqFollowers = useCallback(async () => {
     const token = getToken();
@@ -83,25 +65,28 @@ const ListPost = () => {
     setPosts(message);
   }, []);
 
-  useEffect(() => {
-    reqPosts();
-    reqFollowers();
-    const socket = io('http://localhost:3000'); 
-
-    socket.on('connect', () => {
-      console.log('Conectado ao servidor Socket.IO');
-    });
-
-    socket.on('message', (post) => {
-      console.log('Novo post:', post);
-      alert(`Novo post: ${post}`);
-      reqPosts();
-    });
-
-    return () => {
-      socket.disconnect(); 
+  const reqFollowing = useCallback(async (id: number) => {
+    const token = getToken();
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(token)
+      }
     };
-  }, [reqPosts, reqFollowers, open]);
+    const options = {
+      method: 'POST',
+      headers: header.headers,
+      body: JSON.stringify({ userToFollowId: id })
+    };
+    const { error } = await fetchFollowing('', options);
+    if (error) {
+      setError(error);
+      return;
+    }
+
+  }, []);
+
+
 
 
   const handleLikes = useCallback(async (id: number) => {
@@ -131,11 +116,35 @@ const ListPost = () => {
     return JSON.parse(user) as unknown as User;
   }
 
+  useEffect(() => {
+    reqPosts();
+    reqFollowers();
+
+    const socket = io('http://localhost:3000');
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor Socket.IO');
+    });
+
+    socket.on('post', () => {
+      setError('New post')
+      reqPosts();
+    });
+
+    socket.on('likes', () => {
+      setError('New like')
+      reqPosts();
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [reqPosts, reqFollowers, open]);
+
   const SRC = 'http://172.16.238.10:3000'
 
   return (
     <div className="container mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg">
-      {error && <Alert errorAlert={{ error, setError }} />}
+      {error.length > 0 && <Alert errorAlert={{ error, setError }} />}
       <div className="mb-4">
         {MessagePost()}
       </div>

@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import RabbitMQ from './rabbitmq';
 import path from 'path';
 import http from 'http';
-import { Server as SocketIOServer, Socket } from 'socket.io'; 
+import { Server as SocketIOServer, Socket } from 'socket.io';
 
 import messagingMiddleware from './middlewares/messagingMiddleware';
 
@@ -20,7 +20,16 @@ dotenv.config();
 const app = express();
 
 const server = http.createServer(app);
-const io = new SocketIOServer(server);
+const io = new SocketIOServer(server,
+  {
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type'],
+      credentials: true
+    },
+  }
+);
 
 app.use(cors());
 app.use(express.json());
@@ -28,7 +37,7 @@ const uploadDir = path.join(__dirname, '../uploads');
 app.use('/uploads', express.static(uploadDir));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  (req as any).io = io; 
+  (req as any).io = io;
   next();
 });
 

@@ -6,12 +6,15 @@
 - O backend foi desenvolvido utilizando Node.js, Express, Sequelize e TypeScript, e fornece APIs REST para gerenciar usuários e posts.
 - O front-end foi utiizado o React-vite com typeScript.
 - Para melhorar a escalabilidade e a resiliência da aplicação, foi integrada uma camada de mensageria utilizando RabbitMQ.
+- A aplicação utiliza Socket.IO para comunicação em tempo real, permitindo atualizações instantâneas de posts e interações dos usuários.
 
 ## Tecnologias Utilizadas
 
 - **Backend**: Node.js, Express, Docker, Sequelize, TypeScript
 - **Frontend**: React-vite, TypeScript
 - **Autenticação**: JWT
+- **Mensageria**: RabbitMQ
+- **Comunicação em tempo real**: Socket.IO
 
 ## Pré-requisitos
 
@@ -42,6 +45,7 @@
 3. Configure o .env do backend,  conforme o .env.example
 
 - A integração da mensageria permitirá uma melhor comunicação assíncrona entre os serviços, aumentando a escalabilidade e a resiliência da aplicação.
+- A integração com o Socket.IO permite comunicação em tempo real, notificando os usuários instantaneamente sobre novos posts, likes e interações.
 
 ![schema-db](frontend/src/assets/orkut.png)
 

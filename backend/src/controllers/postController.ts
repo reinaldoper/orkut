@@ -9,7 +9,7 @@ class PostController implements PostDto {
         const { id: userId } = req.body.id;
         req.body.userId = userId;
         const post = await postService.createPost(req.body);
-        io.emit('message', post);
+        io.emit('post', post);
         return res.status(statusCodes.CREATED).json({ message: post });
     }
 
@@ -37,6 +37,7 @@ class PostController implements PostDto {
         const { id } = req.params;
         const { likes } = req.body;
         const post = await postService.updatePostLikeById(Number(id), { likes });
+        io.emit('likes', post);
         return res.status(statusCodes.OK).json({ message: post });
     }
 

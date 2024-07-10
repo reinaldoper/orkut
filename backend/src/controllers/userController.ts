@@ -4,6 +4,7 @@ import statusCodes from "../statusCodes";
 import becrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import IUserDto from "../Dtos/userDTO";
+import { io } from "../server";
 
 class UserController implements IUserDto {
     async create(req: Request, res: Response) {
@@ -12,6 +13,7 @@ class UserController implements IUserDto {
         req.body.password = hashPassword;
         const image: Express.Multer.File | undefined = req.file;
         const user = await userService.createUser(req.body, image);
+        io.emit('user', user);
         return res.status(statusCodes.CREATED).json({ message: user });
     }
 
