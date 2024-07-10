@@ -2,6 +2,7 @@ import { Response, Request } from 'express';
 import photosService from '../service/photosService';
 import statusCodes from '../statusCodes';
 import PhotoDto from '../Dtos/photoDTO';
+import { io } from '../server';
 
 
 class PhotosController implements PhotoDto {
@@ -9,6 +10,7 @@ class PhotosController implements PhotoDto {
     try {
       const url: Express.Multer.File | undefined = req.file;
       const photo = await photosService.create(req.body, url);
+      io.emit('photo', photo);
       return res.status(statusCodes.CREATED).json({ message: photo });
     } catch (error) {
       if (error instanceof Error) {

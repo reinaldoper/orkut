@@ -135,6 +135,11 @@ const ListPost = () => {
       reqPosts();
     });
 
+    socket.on('photo', () => {
+      setError('New photos')
+      reqPosts();
+    });
+
     return () => {
       socket.disconnect();
     };
