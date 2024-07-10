@@ -1,4 +1,4 @@
-# Orkut: Integração de Mensageria
+# Orkut: Integração de Mensageria e Socket
 
 ## Descrição (Projeto em construção)
 
@@ -43,6 +43,6 @@
 
 - A integração da mensageria permitirá uma melhor comunicação assíncrona entre os serviços, aumentando a escalabilidade e a resiliência da aplicação.
 
-4. ![schema-db](frontend/src/assets/orkut.png)
+![schema-db](frontend/src/assets/orkut.png)
 
-5. ![orkut](frontend/src/assets/orkut1.webp)
+![orkut](frontend/src/assets/orkut1.webp)
