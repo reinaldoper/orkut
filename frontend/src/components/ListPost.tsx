@@ -40,7 +40,6 @@ const ListPost = () => {
       setError(error);
       return;
     }
-    setError('');
     setFollowers(message);
   }, []);
 
@@ -61,7 +60,6 @@ const ListPost = () => {
       setError(error);
       return;
     }
-    setError('');
     setPosts(message);
   }, []);
 
@@ -107,7 +105,6 @@ const ListPost = () => {
       setError(error);
       return;
     }
-    setError('');
     reqPosts();
   }, [reqPosts]);
 
@@ -137,6 +134,11 @@ const ListPost = () => {
 
     socket.on('photo', () => {
       setError('New photos')
+      reqPosts();
+    });
+
+    socket.on('user', (user) => {
+      setError(`New user ${user.name}`)
       reqPosts();
     });
 
