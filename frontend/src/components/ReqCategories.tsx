@@ -3,11 +3,14 @@ import fetchCategory from "../services/fetchCategory";
 import { ICategory } from "../types/TCategory";
 import { IPostByCategory } from "../types/IPostByCategory";
 import ReqUserById from "../utils/ReqUserById";
+import Alert from "../utils/alert";
+import io from "socket.io-client";
 
 const ReqCategories = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
   const [postsByCategory, setPostsByCategory] = useState<IPostByCategory[]>([]);
+  const [error, setError] = useState('');
 
   const getToken = () => localStorage.getItem('token') ?? '';
 
@@ -47,6 +50,35 @@ const ReqCategories = () => {
     if (selectedCategoryId > 0) {
       reqCategoriesById(selectedCategoryId);
     }
+    const socket = io('http://localhost:3000');
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor Socket.IO');
+    });
+
+    socket.on('post', () => {
+      setError('New post')
+      if (selectedCategoryId > 0) {
+      reqCategoriesById(selectedCategoryId);
+    }
+    });
+
+    socket.on('likes', () => {
+      setError('New likes')
+      if (selectedCategoryId > 0) {
+      reqCategoriesById(selectedCategoryId);
+    }
+    });
+
+    socket.on('photo', () => {
+      setError('New photos')
+      if (selectedCategoryId > 0) {
+      reqCategoriesById(selectedCategoryId);
+    }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, [selectedCategoryId, reqCategoriesById]);
 
 
@@ -73,6 +105,7 @@ const ReqCategories = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-4">
+      {error.length > 0 && <Alert errorAlert={{ error, setError }} />}
       <select
         className="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
         value={selectedCategoryId}
