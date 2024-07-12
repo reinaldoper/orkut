@@ -1,5 +1,6 @@
 import Categories from "../database/models/categoriesModel";
 import TCategory from "../types/TTypeCategory";
+import PostsModel from "../database/models/postsModel";
 
 
 class CategoriesService {
@@ -21,9 +22,19 @@ class CategoriesService {
         return categories;
     }
 
-    getCategoryById = async (id: number): Promise<TCategory> => {
-        const category = await Categories.findByPk(id);
-        return category as unknown as TCategory;
+    getCategoryById = async (id: number): Promise<TCategory[]> => {
+        const category = await Categories.findAll({
+            where: {
+                id,
+            },
+            include: [
+                {
+                    model: PostsModel,
+                    as: 'posts',
+                }
+            ]
+        });
+        return category as unknown as TCategory[];
     }
 
     updateCategory = async (id: number, category: TCategory): Promise<TCategory | string> => {

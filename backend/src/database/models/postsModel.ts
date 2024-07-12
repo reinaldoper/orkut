@@ -55,7 +55,7 @@ Posts.init({
 Users.hasMany(Posts, { foreignKey: 'userId', as: 'posts' });
 Posts.belongsTo(Users, { foreignKey: 'userId' });
 
-Posts.belongsTo(CategoryModel, { foreignKey: 'categoryId' });
-CategoryModel.hasMany(Posts, { as: 'category', foreignKey: 'categoryId' });
+Posts.belongsTo(CategoryModel, { foreignKey: 'categoryId', as: 'category' });
+CategoryModel.hasMany(Posts, { as: 'posts', foreignKey: 'categoryId' });
 
 export default Posts;

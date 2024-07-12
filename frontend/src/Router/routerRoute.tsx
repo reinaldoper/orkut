@@ -7,6 +7,7 @@ import About from "../components/About";
 import PostUser from "../pages/PostUser";
 import PostFormUser from "../pages/PostFormUser";
 import PostList from "../pages/PostList";
+import PostByCategory from "../pages/PostByCategory";
 
 const routerRoute = () => {
   return (
@@ -21,6 +22,7 @@ const routerRoute = () => {
           <Route path="/post-user/:id" element={<PostUser />}></Route>
           <Route path="/post-form" element={<PostFormUser />}></Route>
           <Route path="/post-list" element={<PostList />}></Route>
+          <Route path="/post-by-category" element={<PostByCategory />}></Route>
         </Routes>
       </BrowserRouter>
     </>

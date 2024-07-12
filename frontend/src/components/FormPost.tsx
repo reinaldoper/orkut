@@ -19,7 +19,7 @@ const FormPost = () => {
 
   const getToken = () => localStorage.getItem('token') ?? '';
 
-  const reqUser = useCallback(async () => {
+  const reqCategories = useCallback(async () => {
     const token = getToken()
     const header = {
       headers: {
@@ -41,8 +41,8 @@ const FormPost = () => {
   }, []);
 
   useEffect(() => {
-    reqUser();
-  }, [reqUser]);
+    reqCategories();
+  }, [reqCategories]);
 
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();

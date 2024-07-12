@@ -11,6 +11,13 @@ const NavLink = () => {
         <Link to="/post-form" className="hover:text-blue-200">Create post</Link>
         <Link to="/post-list" className="hover:text-blue-200">Posts</Link>
       </nav>
+      <div className="flex mx-auto p-2 bg-blue-300 text-blue-500 rounded-lg">
+        <Link to="/post-by-category"
+          className="hover:text-blue-200"
+        >
+          Select post by category...
+        </Link>
+      </div>
     </div>
   );
 }
