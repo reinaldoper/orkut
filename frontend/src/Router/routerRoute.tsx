@@ -8,25 +8,28 @@ import PostUser from "../pages/PostUser";
 import PostFormUser from "../pages/PostFormUser";
 import PostList from "../pages/PostList";
 import PostByCategory from "../pages/PostByCategory";
+import Context from "../context/Context";
+import { useState } from "react";
 
-const routerRoute = () => {
+const RouterRoute = () => {
+  const [value, setValue] = useState<boolean>(false);
   return (
-    <>
-       <BrowserRouter>
+    <Context.Provider value={{ value, setValue }}>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/user-form" element={<UserForm />}></Route>
-          <Route path="/content-page" element={<ContentPage />}></Route>
-          <Route path="*" element={<NotFoundPage  />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/post-user/:id" element={<PostUser />}></Route>
-          <Route path="/post-form" element={<PostFormUser />}></Route>
-          <Route path="/post-list" element={<PostList />}></Route>
-          <Route path="/post-by-category" element={<PostByCategory />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/user-form" element={<UserForm />} />
+          <Route path="/content-page" element={<ContentPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/post-user/:id" element={<PostUser />} />
+          <Route path="/post-form" element={<PostFormUser />} />
+          <Route path="/post-list" element={<PostList />} />
+          <Route path="/post-by-category" element={<PostByCategory />} />
         </Routes>
       </BrowserRouter>
-    </>
-  )
+    </Context.Provider>
+  );
 }
 
-export default routerRoute
+export default RouterRoute;

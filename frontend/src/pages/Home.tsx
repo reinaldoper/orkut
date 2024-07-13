@@ -2,15 +2,22 @@ import '../styles/App.css';
 import orkut_png from '../assets/orkut1.webp';
 import Header from '../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import fetchUsers from '../services/fetchUsers'
 import { ISubmit } from '../types/TUser';
 import Alert from '../utils/alert';
+import Context from '../context/Context';
 
 function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
+  const context = useContext(Context);
+  if (!context) {
+    throw new Error("Context must be used within a Provider");
+  }
+  const { setValue } = context;
 
 
   const reqUserByEmail = async () => {
@@ -37,6 +44,13 @@ function Home() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const setValueLogin = () => {
+      setValue(false)
+    }
+    setValueLogin()
+  }, [setValue])
+
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
     const body = {
@@ -52,6 +66,7 @@ function Home() {
     if (error) {
       setError(error);
     } else {
+      setValue(true);
       reqUserByEmail();
       localStorage.setItem('token', JSON.stringify(token));
       navigate('/content-page');
