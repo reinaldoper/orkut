@@ -12,6 +12,7 @@ import relacition_ship from "../utils/relacionamento";
 import fetchBrasil from "../services/fetchBrasil";
 import { IDistricts } from "../types/IDistricts";
 
+
 const CreateUser = () => {
   const [file, setFile] = useState<File | null>(null);
   const [age, setAge] = useState<string>('');
@@ -37,7 +38,11 @@ const CreateUser = () => {
   const [error, setError] = useState('');
   const [districts, setDistricts] = useState<IDistricts[]>();
   const [district, setDistrict] = useState('');
+  const [kind, setKind] = useState('');
 
+  
+  console.log(gender);
+  
   const navigate = useNavigate();
 
   const handleCountryBrasil = useCallback(async () => {
@@ -76,10 +81,16 @@ const CreateUser = () => {
   };
 
   const compareCity = districts?.some((d) => d["UF-nome"] === city)
-  
+
 
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
+    let newKind = ''
+    if(kind === 'Outro'){
+      newKind = gender
+    } else {
+      newKind = kind
+    }
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
@@ -92,7 +103,7 @@ const CreateUser = () => {
     formData.append('city', city ? `${city}, ${district}` : '');
     formData.append('work', work ? work : '');
     formData.append('education', education ? education : '');
-    formData.append('genro', gender ? gender : '');
+    formData.append('genro', newKind ? newKind : '');
     formData.append('phone_number', phoneNumber ? phoneNumber : '');
     formData.append('birthdate', birthdate ? birthdate : '');
     formData.append('bio', bio ? bio : '');
@@ -132,7 +143,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setName(e.target.value)}
             placeholder="Digite seu nome"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -144,7 +155,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Digite seu e-mail"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -155,7 +166,7 @@ const CreateUser = () => {
             id="password"
             required
             onChange={(e) => setPassword(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -166,7 +177,7 @@ const CreateUser = () => {
             value={age}
             required
             onChange={(e) => setAge(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -176,7 +187,7 @@ const CreateUser = () => {
             id="image"
             required
             onChange={handleFileChange}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -188,7 +199,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="Digite seu número de telefone"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -199,7 +210,7 @@ const CreateUser = () => {
             id="birthdate"
             required
             onChange={(e) => setBirthdate(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -210,7 +221,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setBio(e.target.value)}
             placeholder="Fale um pouco sobre você"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -222,7 +233,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setHobbies(e.target.value)}
             placeholder="Digite seus hobbies"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -234,7 +245,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setFavoriteMovies(e.target.value)}
             placeholder="Digite seus filmes favoritos"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -246,7 +257,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setFavoriteBooks(e.target.value)}
             placeholder="Digite seus livros favoritos"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -258,7 +269,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setFavoriteMusic(e.target.value)}
             placeholder="Digite suas músicas favoritas"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -268,7 +279,7 @@ const CreateUser = () => {
             id="language"
             required
             onChange={(e) => setLanguage(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione sua lingua nativa</option>
             {linguas_nativas.map((lingua, index) => (
@@ -285,7 +296,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setFavoriteFood(e.target.value)}
             placeholder="Digite sua comida favorita"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -295,7 +306,7 @@ const CreateUser = () => {
             id="relationship"
             required
             onChange={(e) => setRelationship(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione seu status de relacionamento</option>
             {relacition_ship.map((relation, index) => (
@@ -310,7 +321,7 @@ const CreateUser = () => {
             id="country"
             required
             onChange={(e) => setCountry(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione seu país</option>
             {principais_paises.map((pais, index) => (
@@ -327,7 +338,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setInterest(e.target.value)}
             placeholder="Digite seus interesses"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -337,7 +348,7 @@ const CreateUser = () => {
             id="city"
             required
             onChange={(e) => setCity(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione seu estado</option>
             {districts?.map((cit, index) => (
@@ -350,7 +361,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setCity(e.target.value)}
             placeholder="Digite seu estado"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />}
         </div>
         <div className="orkut-input">
@@ -360,14 +371,14 @@ const CreateUser = () => {
             id="city"
             required
             onChange={(e) => setDistrict(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione sua cidade</option>
             {districts?.map((cit, index) => (
-                city === cit["UF-nome"] &&
-                  <option key={index}>
-                    {cit["distrito-nome"]}
-                  </option>
+              city === cit["UF-nome"] &&
+              <option key={index}>
+                {cit["distrito-nome"]}
+              </option>
             ))}
           </select> : <input
             type="text"
@@ -376,7 +387,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setDistrict(e.target.value)}
             placeholder="Digite sua cidade"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />}
         </div>
         <div className="orkut-input">
@@ -388,7 +399,7 @@ const CreateUser = () => {
             required
             onChange={(e) => setWork(e.target.value)}
             placeholder="Digite seu trabalho"
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           />
         </div>
         <div className="orkut-input">
@@ -398,7 +409,7 @@ const CreateUser = () => {
             id="education"
             required
             onChange={(e) => setEducation(e.target.value)}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
             <option>Selecione a educação...</option>
             {educationList.map((edu, idx) => (
@@ -408,20 +419,26 @@ const CreateUser = () => {
         </div>
         <div className="orkut-input">
           <label htmlFor="gender" className="block text-gray-700 font-bold">Gênero:</label>
-          <select
-            value={gender}
+          {kind === 'Outro' ? <input
+            type="text"
             id="gender"
+            value={gender}
             required
             onChange={(e) => setGender(e.target.value)}
-            className="border rounded p-2 w-full"
+            placeholder="Digite seu Gênero..."
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
+          /> : <select
+            value={kind}
+            id="gender"
+            required
+            onChange={(e) => setKind(e.target.value)}
+            className="border rounded p-2 w-full bg-blue-400 text-slate-800 placeholder-slate-800"
           >
-            <option>Selecione o Gênero...</option>
-            {genre.map((genre, index) => (
-              <option value={genre} key={index}>
-                {genre}
-              </option>
+            <option>Selecione seu gênero</option>
+            {genre.map((gen, idx) => (
+              <option key={idx} value={gen}>{gen}</option>
             ))}
-          </select>
+          </select>}
         </div>
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded orkut-button">Criar Usuário</button>
       </form>

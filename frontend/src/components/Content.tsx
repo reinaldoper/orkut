@@ -7,6 +7,7 @@ import LoadingPage from "../pages/LoadingPage";
 import '../styles/Content.css';
 import fetchFollowing from "../services/fetchFollowing";
 import { IFollowing } from "../types/IFollowing";
+import { getToken } from "../utils/getToken";
 
 const Content = () => {
   const [users, setUsers] = useState<User>();
@@ -15,7 +16,6 @@ const Content = () => {
   const [following, setFollowing] = useState<IFollowing[]>();
   const [followingUsers, setFollowingUsers] = useState<Map<number, { user: User, count: number }>>(new Map());
 
-  const getToken = () => localStorage.getItem("token") ?? "";
 
   const handleUser = useCallback(async (id: number) => {
     const token = getToken();

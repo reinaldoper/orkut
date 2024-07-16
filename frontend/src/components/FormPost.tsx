@@ -6,6 +6,7 @@ import { ISubmit } from "../types/TUser";
 import fetchPosts from "../services/fetchPosts";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../pages/LoadingPage";
+import { getToken } from "../utils/getToken";
 
 const FormPost = () => {
   const [error, setError] = useState('');
@@ -16,8 +17,6 @@ const FormPost = () => {
   const [loadings, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const getToken = () => localStorage.getItem('token') ?? '';
 
   const reqCategories = useCallback(async () => {
     const token = getToken()

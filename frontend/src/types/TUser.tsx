@@ -1,3 +1,5 @@
+import { IComments } from "./IComments";
+
 export interface ISubmit {
   preventDefault: () => void;
 }
@@ -46,7 +48,8 @@ export interface IPost {
   categoryId: number;
   createdAt: string;
   updatedAt: string;
-  photos: Photos[]
+  photos: Photos[];
+  comments: IComments[];
 }
 
 export interface Photos {
@@ -56,4 +59,10 @@ export interface Photos {
   postId: number;
   createdAt: string;
   updatedAt: string
+}
+export interface IPostByCategory {
+  id: number;
+  name: string;
+  posts: IPost[];
+  comments: IComments[];
 }

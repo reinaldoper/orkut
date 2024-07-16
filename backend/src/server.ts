@@ -12,6 +12,7 @@ import categoryRouter from './routes/categoryRoute';
 import photoRouter from './routes/photosRoute';
 import followersRouter from './routes/followerRoute';
 import followingRouter from './routes/followingRoute';
+import commentsRouter from './routes/commentsRoute';
 
 import cors = require('cors');
 const dotenv = require('dotenv');
@@ -56,6 +57,7 @@ async function startServer() {
     app.use('/photos', photoRouter);
     app.use('/followers', followersRouter);
     app.use('/following', followingRouter);
+    app.use('/comments', commentsRouter);
 
     io.on('connection', (socket: Socket) => {
       console.log('a user connected');

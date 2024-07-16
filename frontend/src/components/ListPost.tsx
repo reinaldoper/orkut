@@ -11,15 +11,16 @@ import Modal from "../utils/Modal";
 import ReqUserById from "../utils/ReqUserById";
 import fetchFollowing from "../services/fetchFollowing";
 import io from "socket.io-client";
+import { getToken } from "../utils/getToken";
+import fetchComments from "../services/fechComments";
 
 const ListPost = () => {
   const [posts, setPosts] = useState<IPost[]>();
   const [error, setError] = useState('');
   const [followers, setFollowers] = useState<TFollowers[]>();
   const [open, setOpen] = useState(false);
+  const [comments, setComments] = useState('');
 
-
-  const getToken = () => localStorage.getItem('token') ?? '';
   const getUser = () => localStorage.getItem('user') ?? '';
 
 
@@ -142,12 +143,39 @@ const ListPost = () => {
       reqPosts();
     });
 
+    socket.on('newComment', (comment) => {
+      setError(`New comment ${comment.comments}`)
+      reqPosts();
+    });
+
     return () => {
       socket.disconnect();
     };
   }, [reqPosts, reqFollowers, open]);
 
   const SRC = 'http://172.16.238.10:3000'
+
+
+  const handleSearch = async (postId: number) => {
+    const token = getToken();
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(token)
+      }
+    };
+    const options = {
+      method: 'POST',
+      headers: header.headers,
+      body: JSON.stringify({ postId, comments })
+    };
+    const { error } = await fetchComments('', options);
+    if (error) {
+      setError(error);
+      return;
+    }
+    setComments('')
+  };
 
   return (
     <div className="container mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg">
@@ -169,6 +197,29 @@ const ListPost = () => {
                   <img className="w-32 h-32 rounded-lg hover:scale-105 transition-transform duration-200" src={`${SRC}${photo.url ?? ''}`} alt={photo.title} />
                 </div>
               ))}
+            </div>
+            <hr className="my-4 bg-slate-600 h-1" />
+            <ReqUserById id={post.userId} />
+            <p>{post.comments?.map((comment, index) => (
+              <div key={index} className="flex items-center mb-2">
+                <span className="text-gray-600 mr-2">{comment.comments}</span>
+              </div>
+            ))}</p>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                value={comments}
+                required
+                onChange={(e) => setComments(e.target.value)}
+                className="w-full p-2 mb-4 border border-gray-300 rounded-md"
+                placeholder="Add a comment"
+              />
+              <button
+                onClick={() => handleSearch(post.id)}
+                className="p-2 mb-4 bg-blue-500 text-white rounded-md"
+              >
+                Add
+              </button>
             </div>
             <div className="flex items-center justify-between mt-4">
               <button onClick={() => handleLikes(post.id)} className="flex items-center gap-2 text-gray-700 hover:text-red-700 transition-colors duration-200" type="button">

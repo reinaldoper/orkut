@@ -5,6 +5,7 @@ import fetchUsers from "../services/fetchUsers";
 import LoadingPage from "../pages/LoadingPage";
 import '../styles/ProfilePost.css'
 import fetchFollowing from "../services/fetchFollowing";
+import { getToken } from "../utils/getToken";
 
 const Posts = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -12,8 +13,6 @@ const Posts = () => {
   const [following, setFollowing] = useState([]);
 
   const { id } = useParams();
-
-  const getToken = () => localStorage.getItem("token") ?? "";
 
   const reqUser = useCallback(async () => {
     const token = getToken();

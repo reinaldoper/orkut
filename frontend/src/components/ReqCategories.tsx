@@ -5,14 +5,13 @@ import { IPostByCategory } from "../types/IPostByCategory";
 import ReqUserById from "../utils/ReqUserById";
 import Alert from "../utils/alert";
 import io from "socket.io-client";
+import { getToken } from "../utils/getToken";
 
 const ReqCategories = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
   const [postsByCategory, setPostsByCategory] = useState<IPostByCategory[]>([]);
   const [error, setError] = useState('');
-
-  const getToken = () => localStorage.getItem('token') ?? '';
 
   const reqCategoriesById = useCallback(async (categoryId: number) => {
     const token = getToken();

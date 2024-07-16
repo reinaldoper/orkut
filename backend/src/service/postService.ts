@@ -2,6 +2,7 @@ import PostsModel from "../database/models/postsModel";
 import TPost from "../types/TTypePost";
 import CategoriesModel from "../database/models/categoriesModel"
 import PhotosModel from "../database/models/photosModel";
+import CommentsModel from "../database/models/comentsPosts";
 
 class PostService {
 
@@ -25,6 +26,16 @@ class PostService {
       include: [{
         model: PhotosModel,
         as: 'photos',
+      },
+      {
+        model: CategoriesModel,
+        as: 'category',
+      },
+      {
+        model: CommentsModel,
+        as: 'comments',
+        separate: true, 
+        order: [['createdAt', 'ASC']]
       }]
     });
     return posts as unknown as TPost[];
@@ -35,7 +46,12 @@ class PostService {
       include: [{
         model: CategoriesModel,
         as: 'category',
-      }]
+      },
+      {
+        model: CommentsModel,
+        as: 'comments',
+      }
+      ]
     });
     return post as unknown as TPost;
   }

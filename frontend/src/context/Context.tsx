@@ -1,9 +1,5 @@
-import { createContext, Dispatch, SetStateAction } from 'react';
-
-interface ContextProps {
-  value: boolean;
-  setValue: Dispatch<SetStateAction<boolean>>;
-}
+import { createContext } from 'react';
+import { ContextProps } from '../types/IContext';
 
 const Context = createContext<ContextProps | undefined>(undefined);
 

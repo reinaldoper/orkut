@@ -1,3 +1,5 @@
+import { IComments } from "./IComments";
+
 export interface IPost {
   id: number;
   title: string;
@@ -11,4 +13,5 @@ export interface IPostByCategory {
   id: number;
   name: string;
   posts: IPost[];
+  comments: IComments[];
 }
