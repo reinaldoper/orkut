@@ -199,10 +199,9 @@ const ListPost = () => {
               ))}
             </div>
             <hr className="my-4 bg-slate-600 h-1" />
-            <ReqUserById id={post.userId} />
             <p>{post.comments?.map((comment, index) => (
               <div key={index} className="flex items-center mb-2">
-                <span className="text-gray-600 mr-2">{comment.comments}</span>
+                <span className="text-gray-600 mr-2"><ReqUserById id={post.userId} /> {comment.comments}</span>
               </div>
             ))}</p>
             <div className="flex items-center space-x-2">
@@ -218,7 +217,9 @@ const ListPost = () => {
                 onClick={() => handleSearch(post.id)}
                 className="p-2 mb-4 bg-blue-500 text-white rounded-md"
               >
-                Add
+                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16.153 19 21 12l-4.847-7H3l4.848 7L3 19h13.153Z" />
+                </svg>
               </button>
             </div>
             <div className="flex items-center justify-between mt-4">

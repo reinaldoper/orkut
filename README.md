@@ -1,8 +1,8 @@
 # Orkut: Integração de Mensageria e Socket
 
-## Descrição (Projeto em construção)
+## Descrição
 
-- Este é o projeto Orkut, uma aplicação inspirada na antiga rede social Orkut. 
+- Este é um projeto que visa reviver e modernizar a antiga e viral rede social Orkut.
 - O backend foi desenvolvido utilizando Node.js, Express, Sequelize e TypeScript, e fornece APIs REST para gerenciar usuários e posts.
 - O front-end foi utiizado o React-vite com typeScript.
 - Para melhorar a escalabilidade e a resiliência da aplicação, foi integrada uma camada de mensageria utilizando RabbitMQ.
