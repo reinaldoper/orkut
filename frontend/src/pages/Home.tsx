@@ -2,16 +2,17 @@ import '../styles/App.css';
 import orkut_png from '../assets/orkut1.webp';
 import Header from '../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useContext, useEffect } from 'react'
-import fetchUsers from '../services/fetchUsers'
+import { useState, useContext, useEffect } from 'react';
+import fetchUsers from '../services/fetchUsers';
 import { ISubmit } from '../types/TUser';
 import Alert from '../utils/alert';
 import Context from '../context/Context';
 
 function Home() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   const context = useContext(Context);
   if (!context) {
@@ -19,44 +20,48 @@ function Home() {
   }
   const { setValue } = context;
 
-
   const reqUserByEmail = async () => {
-    const token = localStorage.getItem('token') ?? ''
+    const token = localStorage.getItem('token') ?? '';
     const header = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': JSON.parse(token)
-      }
-    }
+        'Authorization': JSON.parse(token),
+      },
+    };
     const options = {
       method: 'GET',
       headers: header.headers,
     };
-    const { message, error } = await fetchUsers(`${email}`, options)
+    const { message, error } = await fetchUsers(`${email}`, options);
     if (error) {
-      setError(error)
-      return
+      setError(error);
+      return;
     }
-    
-    localStorage.setItem('user', JSON.stringify(message))
-  }
-  
+    localStorage.setItem('user', JSON.stringify(message));
+  };
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const setValueLogin = () => {
-      setValue(false)
+      setValue(false);
+    };
+    setValueLogin();
+    const savedEmail = localStorage.getItem('savedEmail');
+    const savedPassword = localStorage.getItem('savedPassword');
+    if (savedEmail && savedPassword) {
+      setEmail(savedEmail);
+      setPassword(savedPassword);
+      setRememberMe(true);
     }
-    setValueLogin()
-  }, [setValue])
+  }, [setValue]);
 
   const onSubmit = async (e: ISubmit) => {
     e.preventDefault();
     const body = {
       email: email ? email : '',
-      password: password ? password : ''
-    }
+      password: password ? password : '',
+    };
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -70,13 +75,19 @@ function Home() {
       reqUserByEmail();
       localStorage.setItem('token', JSON.stringify(token));
       navigate('/content-page');
+
+      if (rememberMe) {
+        localStorage.setItem('savedEmail', email);
+        localStorage.setItem('savedPassword', password);
+      } else {
+        localStorage.removeItem('savedEmail');
+        localStorage.removeItem('savedPassword');
+      }
     }
   };
 
-
-
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <div className='content-header-page flex m-3 bg-blue-400'>
         <Header />
         <h1 className='orkut-logo'>Orkut</h1>
@@ -94,14 +105,31 @@ function Home() {
             <h3>Login</h3>
             <label>
               E-mail:
-              <input required type="email" onChange={(e) => setEmail(e.target.value)} className="text-slate-500 email border-none" />
+              <input
+                required
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="text-slate-500 email border-none"
+              />
             </label>
             <label>
               Senha:
-              <input required type="password" onChange={(e) => setPassword(e.target.value)} className="password" />
+              <input
+                required
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="password"
+              />
             </label>
             <label className="checkbox-container">
-              <input type="checkbox" className="checkbox" />
+              <input
+                type="checkbox"
+                className="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
               Salvar as minhas informações neste computador
             </label>
             <label>

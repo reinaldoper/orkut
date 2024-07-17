@@ -80,40 +80,40 @@ const FormPost = () => {
         <Alert errorAlert={{ error, setError }} />
         <LoadingPage />
       </div> : <div className="flex justify-center mt-8">
-        <form onSubmit={onSubmit} className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
+        <form onSubmit={onSubmit} className="w-full max-w-xl bg-blue-50 rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4 text-blue-600">No que você está pensando?</h2>
           {error && <Alert errorAlert={{ error, setError }} />}
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="title">Título:</label>
+            <label className="block text-blue-700 font-bold mb-2" htmlFor="title">Título:</label>
             <input
               value={title}
               id="title"
               required
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Digite um título..."
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border rounded w-full py-2 px-3 text-blue-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="content">Conteúdo:</label>
+            <label className="block text-blue-700 font-bold mb-2" htmlFor="content">Conteúdo:</label>
             <textarea
               value={content}
               id="content"
               required
               onChange={(e) => setContent(e.target.value)}
               placeholder="Digite o conteúdo..."
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border rounded w-full py-2 px-3 text-blue-700 leading-tight focus:outline-none focus:shadow-outline"
               rows={5}
               minLength={10}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="category">Categoria:</label>
+            <label className="block text-blue-700 font-bold mb-2" htmlFor="category">Categoria:</label>
             <select
               value={selectedCategoryId}
               onChange={(e) => setSelectedCategoryId(e.target.value)}
               name="category"
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border rounded w-full py-2 px-3 text-blue-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             >
               <option value="">Selecione uma categoria...</option>
