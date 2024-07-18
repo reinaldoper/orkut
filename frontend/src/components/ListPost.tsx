@@ -201,7 +201,9 @@ const ListPost = () => {
             <hr className="my-4 bg-slate-600 h-1" />
             <p>{post.comments?.map((comment, index) => (
               <div key={index} className="flex items-center mb-2">
-                <span className="text-gray-600 mr-2"><ReqUserById id={post.userId} /> {comment.comments}</span>
+                <span className="text-gray-600 mr-2 flex justify-center items-center">
+                  <ReqUserById id={post.userId} /> {comment.comments}
+                </span>
               </div>
             ))}</p>
             <div className="flex items-center space-x-2">
