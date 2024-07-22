@@ -19,7 +19,7 @@ const ListPost = () => {
   const [error, setError] = useState('');
   const [followers, setFollowers] = useState<TFollowers[]>();
   const [open, setOpen] = useState(false);
-  const [comments, setComments] = useState('');
+  const [commentsMap, setCommentsMap] = useState<{ [key: number]: string }>({});
 
   const getUser = () => localStorage.getItem('user') ?? '';
 
@@ -167,14 +167,18 @@ const ListPost = () => {
     const options = {
       method: 'POST',
       headers: header.headers,
-      body: JSON.stringify({ postId, comments })
+      body: JSON.stringify({ postId, comments: commentsMap[postId] })
     };
     const { error } = await fetchComments('', options);
     if (error) {
       setError(error);
       return;
     }
-    setComments('')
+    setCommentsMap(prev => ({ ...prev, [postId]: '' }));
+  };
+
+  const handleCommentChange = (postId: number, value: string) => {
+    setCommentsMap(prev => ({ ...prev, [postId]: value }));
   };
 
   return (
@@ -209,9 +213,9 @@ const ListPost = () => {
             <div className="flex items-center space-x-2">
               <input
                 type="text"
-                value={comments}
+                value={commentsMap[post.id] || ''}
                 required
-                onChange={(e) => setComments(e.target.value)}
+                onChange={(e) => handleCommentChange(post.id, e.target.value)}
                 className="w-full p-2 mb-4 border border-gray-300 rounded-md"
                 placeholder="Add a comment"
               />
